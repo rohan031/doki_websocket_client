@@ -3,11 +3,11 @@ enum PayloadType {
   groupChatMessage,
   typingStatus,
   editMessage,
-  deleteMessage,
+  deleteMessage;
 }
 
 extension PayloadTypeValue on PayloadType {
-  String get name {
+  String get value {
     switch (this) {
       case PayloadType.chatMessage:
         return "chat_message";
@@ -20,5 +20,14 @@ extension PayloadTypeValue on PayloadType {
       case PayloadType.deleteMessage:
         return "delete_message";
     }
+  }
+
+  static PayloadType? fromValue(String value) {
+    for (PayloadType type in PayloadType.values) {
+      if (type.value == value) {
+        return type;
+      }
+    }
+    return null;
   }
 }

@@ -11,6 +11,15 @@ class ChatMessage {
   })  : _payloadType = PayloadType.chatMessage,
         sendAt = DateTime.now();
 
+  const ChatMessage._internal({
+    required this.from,
+    required this.to,
+    required this.id,
+    required this.subject,
+    required this.body,
+    required this.sendAt,
+  }) : _payloadType = PayloadType.chatMessage;
+
   final PayloadType _payloadType;
   final String from;
   final String to;
@@ -18,4 +27,27 @@ class ChatMessage {
   final MessageSubject subject;
   final String body;
   final DateTime sendAt;
+
+  static ChatMessage fromJSON(Map<String, dynamic> json) {
+    return ChatMessage._internal(
+      from: json["from"],
+      to: json["to"],
+      id: json["id"],
+      subject: MessageSubjectExtensions.fromValue(json["subject"]),
+      body: json["body"],
+      sendAt: DateTime.parse(json["sendAt"]),
+    );
+  }
+
+  Map<String, String> toJSON() {
+    return {
+      "type": _payloadType.value,
+      "from": from,
+      "to": to,
+      "id": id,
+      "subject": subject.value,
+      "body": body,
+      "sendAt": sendAt.toIso8601String(),
+    };
+  }
 }

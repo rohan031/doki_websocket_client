@@ -10,7 +10,7 @@ enum MessageSubject {
   dokiPolls,
 }
 
-extension MessageSubjectValue on MessageSubject {
+extension MessageSubjectExtensions on MessageSubject {
   String get value {
     switch (this) {
       case MessageSubject.text:
@@ -32,5 +32,14 @@ extension MessageSubjectValue on MessageSubject {
       case MessageSubject.dokiPolls:
         return "doki@polls";
     }
+  }
+
+  static MessageSubject fromValue(String value) {
+    for (MessageSubject subject in MessageSubject.values) {
+      if (subject.value == value) {
+        return subject;
+      }
+    }
+    return MessageSubject.text;
   }
 }
