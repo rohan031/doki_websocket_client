@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 
 class EditMessage {
@@ -34,14 +36,14 @@ class EditMessage {
     );
   }
 
-  Map<String, String> toJSON() {
-    return {
+  String toJSON() {
+    return jsonEncode({
       "type": _payloadType.value,
       "from": from,
       "to": to,
       "id": id,
       "body": body,
-      "editedOn": editedOn.toIso8601String(),
-    };
+      "editedOn": editedOn.toUtc().toIso8601String(),
+    });
   }
 }

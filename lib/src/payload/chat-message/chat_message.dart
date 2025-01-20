@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:doki_websocket_client/src/payload/message-subject/message_subject.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 
@@ -39,15 +41,15 @@ class ChatMessage {
     );
   }
 
-  Map<String, String> toJSON() {
-    return {
+  String toJSON() {
+    return jsonEncode({
       "type": _payloadType.value,
       "from": from,
       "to": to,
       "id": id,
       "subject": subject.value,
       "body": body,
-      "sendAt": sendAt.toIso8601String(),
-    };
+      "sendAt": sendAt.toUtc().toIso8601String(),
+    });
   }
 }

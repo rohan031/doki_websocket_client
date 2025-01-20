@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 
 class TypingStatus {
@@ -17,11 +19,11 @@ class TypingStatus {
     );
   }
 
-  Map<String, String> toJSON() {
-    return {
+  String toJSON() {
+    return jsonEncode({
       "type": _payloadType.value,
       "from": from,
       "to": to,
-    };
+    });
   }
 }

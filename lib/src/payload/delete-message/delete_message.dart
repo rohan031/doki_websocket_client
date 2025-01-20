@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 
 class DeleteMessage {
@@ -23,13 +25,13 @@ class DeleteMessage {
     );
   }
 
-  Map<String, String> toJSON() {
-    return {
+  String toJSON() {
+    return jsonEncode({
       "type": _payloadType.value,
       "from": from,
       "to": to,
       "id": id,
       "everyone": everyone.toString(),
-    };
+    });
   }
 }
