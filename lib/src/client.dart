@@ -53,7 +53,7 @@ class Client {
       connectionUrl,
       headers: headers,
       pingInterval: Duration(
-        seconds: 5,
+        seconds: 30,
       ),
       connectTimeout: Duration(
         seconds: 30,
@@ -89,7 +89,7 @@ class Client {
         try {
           _tries++;
           await connect();
-        } on WebSocketChannelException catch (e) {
+        } on WebSocketChannelException catch (_) {
           if (_tries < limit) _handleLostConnection();
         } catch (e) {
           return;
