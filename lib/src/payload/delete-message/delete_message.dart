@@ -13,7 +13,7 @@ class DeleteMessage {
   final PayloadType _payloadType;
   final String from;
   final String to;
-  final String id;
+  final List<String> id;
   final bool everyone;
 
   static DeleteMessage fromJSON(Map<String, dynamic> json) {
