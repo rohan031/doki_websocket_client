@@ -12,7 +12,6 @@ void main() async {
   final client = Client(
     url: Uri.parse("wss://rtc.doki.co.in/ws"),
     getToken: getToken,
-    resource: "dart-client",
     onChatMessageReceived: (ChatMessage message) {
       print(message.toJSON());
     },
