@@ -6,7 +6,6 @@ import 'package:doki_websocket_client/src/payload/delete-message/delete_message.
 import 'package:doki_websocket_client/src/payload/edit-message/edit_message.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/payload/typing-status/typing_status.dart';
-import 'package:doki_websocket_client/src/utils/generate_string.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -19,6 +18,7 @@ class Client {
   Client({
     required this.url,
     required this.getToken,
+    required this.resource,
     this.onChatMessageReceived,
     this.onTypingStatusReceived,
     this.onEditMessageReceived,
@@ -27,6 +27,7 @@ class Client {
 
   final Uri url;
   final AsyncValueGetter<String> getToken;
+  final String resource;
 
   final ValueSetter<ChatMessage>? onChatMessageReceived;
   final ValueSetter<TypingStatus>? onTypingStatusReceived;
@@ -34,6 +35,7 @@ class Client {
   final ValueSetter<DeleteMessage>? onDeleteMessageReceived;
 
   IOWebSocketChannel? _socketChannel;
+  bool get isActive => _socketChannel != null;
 
   bool _isManuallyClosed = false;
   int _tries = -1;
@@ -46,7 +48,7 @@ class Client {
       "Authorization": "Bearer $jwtToken",
     };
     Uri connectionUrl = url.replace(queryParameters: {
-      "resource": generateRandomString(),
+      "resource": resource,
     });
 
     final websocketChannel = IOWebSocketChannel.connect(
@@ -87,6 +89,7 @@ class Client {
       Duration(seconds: 1 << _tries),
       () async {
         try {
+          print("retry");
           _tries++;
           await connect();
         } on WebSocketChannelException catch (_) {
