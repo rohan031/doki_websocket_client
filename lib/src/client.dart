@@ -13,6 +13,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 typedef AsyncValueGetter<T> = Future<T> Function();
 typedef ValueSetter<T> = Function(T message);
+typedef VoidCallback = Function();
 const int limit = 6;
 
 class Client {
@@ -23,6 +24,7 @@ class Client {
     this.onTypingStatusReceived,
     this.onEditMessageReceived,
     this.onDeleteMessageReceived,
+    this.onConnectionTerminated,
   }) : resource = generateRandomString();
 
   final Uri url;
@@ -33,6 +35,7 @@ class Client {
   final ValueSetter<TypingStatus>? onTypingStatusReceived;
   final ValueSetter<EditMessage>? onEditMessageReceived;
   final ValueSetter<DeleteMessage>? onDeleteMessageReceived;
+  final VoidCallback? onConnectionTerminated;
 
   IOWebSocketChannel? _socketChannel;
   bool get isActive => _socketChannel != null;
@@ -70,12 +73,14 @@ class Client {
       _handleServerPayload,
       onError: (error) {
         if (_tries == -1) _tries = 0;
+        if (onConnectionTerminated != null) onConnectionTerminated!();
         _socketChannel = null;
         _handleLostConnection();
       },
       onDone: () {
         if (_isManuallyClosed) return;
         if (_tries == -1) _tries = 0;
+        if (onConnectionTerminated != null) onConnectionTerminated!();
         _socketChannel = null;
         _handleLostConnection();
       },
