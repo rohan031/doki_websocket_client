@@ -89,6 +89,7 @@ class Client {
       Duration(seconds: 1 << _tries),
       () async {
         try {
+          print("retry");
           _tries++;
           await connect();
         } on WebSocketChannelException catch (_) {
