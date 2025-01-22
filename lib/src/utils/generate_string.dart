@@ -1,6 +1,7 @@
 import 'dart:math';
 
-String generateRandomString() {
+/// generateRandomString is used to generate random string which will be used as resource for the user
+String generateResource() {
   int len = 10;
   var r = Random();
   String randomString =

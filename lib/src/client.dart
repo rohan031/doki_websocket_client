@@ -33,7 +33,7 @@ class Client {
     required this.onDeleteMessageReceived,
     required this.onReconnectSuccess,
     required this.onConnectionClosure,
-  }) : _resource = generateRandomString();
+  }) : _resource = generateResource();
 
   /// url is the websocket connection uri
   final Uri url;
