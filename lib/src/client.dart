@@ -25,6 +25,7 @@ class Client {
     this.onEditMessageReceived,
     this.onDeleteMessageReceived,
     this.onConnectionTerminated,
+    this.onRetryAttempt,
   }) : resource = generateRandomString();
 
   final Uri url;
@@ -36,6 +37,7 @@ class Client {
   final ValueSetter<EditMessage>? onEditMessageReceived;
   final ValueSetter<DeleteMessage>? onDeleteMessageReceived;
   final VoidCallback? onConnectionTerminated;
+  final VoidCallback? onRetryAttempt;
 
   IOWebSocketChannel? _socketChannel;
   bool get isActive => _socketChannel != null;
@@ -96,6 +98,7 @@ class Client {
         try {
           print("retry");
           _tries++;
+          if (onRetryAttempt != null) onRetryAttempt!();
           await connect();
         } on WebSocketChannelException catch (_) {
           if (_tries < limit) _handleLostConnection();
