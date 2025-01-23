@@ -20,7 +20,7 @@ typedef ValueGetter<T> = T Function();
 
 /// amount of retries before giving up reconnection
 /// this is based on exponential backoff strategy
-/// eg. time before retrying: 2s, 4s, 8s, 16s... (2^limit+1)
+/// eg. time before retrying: 1s, 2s, 4s, 8s, 16s... (2^limit)
 const int limit = 6;
 
 class Client {
@@ -152,7 +152,7 @@ class Client {
           _tries++;
           await connect();
         } on WebSocketChannelException catch (_) {
-          if (_tries < limit) {
+          if (_tries <= limit) {
             _handleLostConnection();
           } else {
             // allow client to try reconnecting if app is in foreground with active internet connection
