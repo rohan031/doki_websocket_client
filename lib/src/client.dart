@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
@@ -91,6 +92,13 @@ class Client {
   /// tries is to manage number of reconnect request to server after termination of the connection
   int _tries = -1;
 
+  /// undelivered contains all the messages thar are not delivered
+  /// when there is no connection, after successful connection this will be
+  /// used to retry sending these messages
+  /// messages are only stored for the particular session of application
+  /// if application is terminated than queue will also be cleared
+  Queue<ChatMessage> undelivered = Queue();
+
   /// connect is used to connect to the websocket server
   /// if an existing connection exists it does nothing
   Future<void> connect() async {
@@ -116,6 +124,7 @@ class Client {
     );
 
     await websocketChannel.ready;
+    _handleUndelivered();
     if (_tries != -1) {
       onReconnectSuccess();
     }
@@ -191,10 +200,21 @@ class Client {
     }
   }
 
+  /// handleUndelivered retries sending all the failed messages after connection
+  /// is back
+  void _handleUndelivered() {
+    while (undelivered.isNotEmpty) {
+      ChatMessage message = undelivered.first;
+      undelivered.removeFirst();
+
+      sendMessage(message);
+    }
+  }
+
   /// disconnect closes the underlying websocket connection to the server
   /// with [status.normalClosure]
   void disconnect() {
-    if (_socketChannel == null) return;
+    if (!isActive) return;
 
     _isManuallyClosed = true;
     _socketChannel!.sink.close(status.normalClosure);
@@ -203,7 +223,10 @@ class Client {
 
   /// sendMessage method is used to send message to particular user
   bool sendMessage(ChatMessage message) {
-    if (_socketChannel == null) return false;
+    if (!isActive) {
+      undelivered.add(message);
+      return false;
+    }
 
     _socketChannel!.sink.add(message.toJSON());
     return true;
@@ -211,7 +234,7 @@ class Client {
 
   /// sendTypingStatus method is used to send typing status to particular user
   bool sendTypingStatus(TypingStatus status) {
-    if (_socketChannel == null) return false;
+    if (!isActive) return false;
 
     _socketChannel!.sink.add(status.toJSON());
     return true;
@@ -219,7 +242,7 @@ class Client {
 
   /// editMessage method is used to edit user's own message
   bool editMessage(EditMessage message) {
-    if (_socketChannel == null) return false;
+    if (!isActive) return false;
 
     _socketChannel!.sink.add(message.toJSON());
     return true;
@@ -228,7 +251,7 @@ class Client {
   /// deleteMessage is used to delete any message for them
   /// additionally it also allows to delete message for everyone that is our own message
   bool deleteMessage(DeleteMessage message) {
-    if (_socketChannel == null) return false;
+    if (!isActive) return false;
 
     _socketChannel!.sink.add(message.toJSON());
     return true;
