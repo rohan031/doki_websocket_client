@@ -52,4 +52,14 @@ class ChatMessage {
       "sendAt": sendAt.toUtc().toIso8601String(),
     });
   }
+
+  ChatMessage updateMessage({required String body}) {
+    return ChatMessage(
+      from: from,
+      to: to,
+      id: id,
+      subject: subject,
+      body: body,
+    );
+  }
 }
