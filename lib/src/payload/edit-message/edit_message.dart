@@ -17,7 +17,7 @@ class EditMessage {
     required this.id,
     required this.body,
     required this.editedOn,
-  }) : _payloadType = PayloadType.chatMessage;
+  }) : _payloadType = PayloadType.editMessage;
 
   final PayloadType _payloadType;
   final String from;
@@ -30,7 +30,7 @@ class EditMessage {
     return EditMessage._internal(
       from: json["from"],
       to: json["to"],
-      id: json["id"].cast<String>(),
+      id: json["id"],
       body: json["body"],
       editedOn: DateTime.parse(json["editedOn"]),
     );

@@ -1,6 +1,6 @@
 name: doki_websocket_client
 description: A websocket client to use in Doki.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/rohan031/doki_websocket_client
 
 environment:
