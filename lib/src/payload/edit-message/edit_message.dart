@@ -8,7 +8,7 @@ class EditMessage {
     required this.to,
     required this.id,
     required this.body,
-  })  : _payloadType = PayloadType.chatMessage,
+  })  : _payloadType = PayloadType.editMessage,
         editedOn = DateTime.now();
 
   const EditMessage._internal({

@@ -8,7 +8,7 @@ class DeleteMessage {
     required this.to,
     required this.id,
     required this.everyone,
-  }) : _payloadType = PayloadType.chatMessage;
+  }) : _payloadType = PayloadType.deleteMessage;
 
   final PayloadType _payloadType;
   final String from;
