@@ -30,7 +30,7 @@ class EditMessage {
     return EditMessage._internal(
       from: json["from"],
       to: json["to"],
-      id: json["id"],
+      id: json["id"].cast<String>(),
       body: json["body"],
       editedOn: DateTime.parse(json["editedOn"]),
     );

@@ -20,7 +20,7 @@ class DeleteMessage {
     return DeleteMessage(
       from: json["from"],
       to: json["to"],
-      id: json["id"],
+      id: List<String>.from(json["id"]),
       everyone: bool.parse(json["everyone"]),
     );
   }
