@@ -1,3 +1,4 @@
+import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/message-subject/message_subject.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/utils/json_converter.dart';
@@ -6,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "chat_message.g.dart";
 
 @JsonSerializable()
-class ChatMessage {
+class ChatMessage implements BaseInstantMessagingPayload {
   ChatMessage({
     required this.from,
     required this.to,
@@ -31,6 +32,7 @@ class ChatMessage {
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 
   ChatMessage updateMessage({required String body}) {

@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/chat-message/chat_message.dart';
 import 'package:doki_websocket_client/src/payload/delete-message/delete_message.dart';
 import 'package:doki_websocket_client/src/payload/edit-message/edit_message.dart';
@@ -97,7 +98,7 @@ class Client {
   /// used to retry sending these messages
   /// messages are only stored for the particular session of application
   /// if application is terminated than queue will also be cleared
-  Queue<ChatMessage> undelivered = Queue();
+  Queue<BaseInstantMessagingPayload> undelivered = Queue();
 
   /// connect is used to connect to the websocket server
   /// if an existing connection exists it does nothing
@@ -204,10 +205,10 @@ class Client {
   /// is back
   void _handleUndelivered() {
     while (undelivered.isNotEmpty) {
-      ChatMessage message = undelivered.first;
+      BaseInstantMessagingPayload payload = undelivered.first;
       undelivered.removeFirst();
 
-      sendMessage(message);
+      _sendMessagingPayload(payload);
     }
   }
 
@@ -221,6 +222,10 @@ class Client {
     _socketChannel = null;
   }
 
+  void _sendMessagingPayload(BaseInstantMessagingPayload payload) {
+    _socketChannel?.sink.add(jsonEncode(payload.toJson()));
+  }
+
   /// sendMessage method is used to send message to particular user
   bool sendMessage(ChatMessage message) {
     if (!isActive) {
@@ -228,32 +233,39 @@ class Client {
       return false;
     }
 
-    _socketChannel!.sink.add(jsonEncode(message.toJson()));
+    _sendMessagingPayload(message);
     return true;
   }
 
   /// sendTypingStatus method is used to send typing status to particular user
   bool sendTypingStatus(TypingStatus status) {
-    if (!isActive) return false;
+    if (!isActive) {
+      return false;
+    }
 
-    _socketChannel!.sink.add(jsonEncode(status.toJson()));
+    _sendMessagingPayload(status);
     return true;
   }
 
   /// editMessage method is used to edit user's own message
   bool editMessage(EditMessage message) {
-    if (!isActive) return false;
+    if (!isActive) {
+      // undelivered.add(message);
+      return false;
+    }
 
-    _socketChannel!.sink.add(jsonEncode(message.toJson()));
+    _sendMessagingPayload(message);
     return true;
   }
 
   /// deleteMessage is used to delete any message for them
   /// additionally it also allows to delete message for everyone that is our own message
   bool deleteMessage(DeleteMessage message) {
-    if (!isActive) return false;
-
-    _socketChannel!.sink.add(jsonEncode(message.toJson()));
+    if (!isActive) {
+      // undelivered.add(message);
+      return false;
+    }
+    _sendMessagingPayload(message);
     return true;
   }
 }

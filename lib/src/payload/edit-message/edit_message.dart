@@ -1,3 +1,4 @@
+import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/utils/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -5,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "edit_message.g.dart";
 
 @JsonSerializable()
-class EditMessage {
+class EditMessage implements BaseInstantMessagingPayload {
   EditMessage({
     required this.from,
     required this.to,

@@ -1,10 +1,11 @@
+import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part "typing_status.g.dart";
 
 @JsonSerializable()
-class TypingStatus {
+class TypingStatus implements BaseInstantMessagingPayload {
   const TypingStatus({
     required this.from,
     required this.to,
@@ -18,5 +19,6 @@ class TypingStatus {
   factory TypingStatus.fromJson(Map<String, dynamic> json) =>
       _$TypingStatusFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$TypingStatusToJson(this);
 }
