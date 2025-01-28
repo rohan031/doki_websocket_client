@@ -1,49 +1,31 @@
-import 'dart:convert';
-
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
+import 'package:doki_websocket_client/src/utils/json_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part "edit_message.g.dart";
+
+@JsonSerializable()
 class EditMessage {
   EditMessage({
     required this.from,
     required this.to,
     required this.id,
     required this.body,
+    DateTime? editedOn,
   })  : _payloadType = PayloadType.editMessage,
-        editedOn = DateTime.now();
+        editedOn = editedOn ?? DateTime.now();
 
-  const EditMessage._internal({
-    required this.from,
-    required this.to,
-    required this.id,
-    required this.body,
-    required this.editedOn,
-  }) : _payloadType = PayloadType.editMessage;
-
+  @JsonKey(includeToJson: true, name: "type")
   final PayloadType _payloadType;
   final String from;
   final String to;
   final String id;
   final String body;
+  @UTCDateTimeConverter()
   final DateTime editedOn;
 
-  static EditMessage fromJSON(Map<String, dynamic> json) {
-    return EditMessage._internal(
-      from: json["from"],
-      to: json["to"],
-      id: json["id"],
-      body: json["body"],
-      editedOn: DateTime.parse(json["editedOn"]),
-    );
-  }
+  factory EditMessage.fromJson(Map<String, dynamic> json) =>
+      _$EditMessageFromJson(json);
 
-  String toJSON() {
-    return jsonEncode({
-      "type": _payloadType.value,
-      "from": from,
-      "to": to,
-      "id": id,
-      "body": body,
-      "editedOn": editedOn.toUtc().toIso8601String(),
-    });
-  }
+  Map<String, dynamic> toJson() => _$EditMessageToJson(this);
 }

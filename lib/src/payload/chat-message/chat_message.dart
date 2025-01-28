@@ -1,8 +1,11 @@
-import 'dart:convert';
-
 import 'package:doki_websocket_client/src/payload/message-subject/message_subject.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
+import 'package:doki_websocket_client/src/utils/json_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part "chat_message.g.dart";
+
+@JsonSerializable()
 class ChatMessage {
   ChatMessage({
     required this.from,
@@ -10,48 +13,25 @@ class ChatMessage {
     required this.id,
     required this.subject,
     required this.body,
+    DateTime? sendAt,
   })  : _payloadType = PayloadType.chatMessage,
-        sendAt = DateTime.now();
+        sendAt = sendAt ?? DateTime.now();
 
-  const ChatMessage._internal({
-    required this.from,
-    required this.to,
-    required this.id,
-    required this.subject,
-    required this.body,
-    required this.sendAt,
-  }) : _payloadType = PayloadType.chatMessage;
-
+  @JsonKey(includeToJson: true, name: "type")
   final PayloadType _payloadType;
   final String from;
   final String to;
   final String id;
   final MessageSubject subject;
   final String body;
+
+  @UTCDateTimeConverter()
   final DateTime sendAt;
 
-  static ChatMessage fromJSON(Map<String, dynamic> json) {
-    return ChatMessage._internal(
-      from: json["from"],
-      to: json["to"],
-      id: json["id"],
-      subject: MessageSubjectExtensions.fromValue(json["subject"]),
-      body: json["body"],
-      sendAt: DateTime.parse(json["sendAt"]),
-    );
-  }
+  factory ChatMessage.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageFromJson(json);
 
-  String toJSON() {
-    return jsonEncode({
-      "type": _payloadType.value,
-      "from": from,
-      "to": to,
-      "id": id,
-      "subject": subject.value,
-      "body": body,
-      "sendAt": sendAt.toUtc().toIso8601String(),
-    });
-  }
+  Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 
   ChatMessage updateMessage({required String body}) {
     return ChatMessage(

@@ -181,21 +181,21 @@ class Client {
   void _handleServerPayload(dynamic payload) {
     // decode payload to map
     final messageMap = jsonDecode(payload) as Map<String, dynamic>;
-    PayloadType? type = PayloadTypeValue.fromValue(messageMap["type"]);
+    PayloadType? type = payloadTypeMap[messageMap["type"]];
     if (type == null) return;
 
     switch (type) {
       case PayloadType.chatMessage:
-        final message = ChatMessage.fromJSON(messageMap);
+        final message = ChatMessage.fromJson(messageMap);
         onChatMessageReceived(message);
       case PayloadType.typingStatus:
-        final message = TypingStatus.fromJSON(messageMap);
+        final message = TypingStatus.fromJson(messageMap);
         onTypingStatusReceived(message);
       case PayloadType.editMessage:
-        final message = EditMessage.fromJSON(messageMap);
+        final message = EditMessage.fromJson(messageMap);
         onEditMessageReceived(message);
       case PayloadType.deleteMessage:
-        final message = DeleteMessage.fromJSON(messageMap);
+        final message = DeleteMessage.fromJson(messageMap);
         onDeleteMessageReceived(message);
     }
   }
@@ -228,7 +228,7 @@ class Client {
       return false;
     }
 
-    _socketChannel!.sink.add(message.toJSON());
+    _socketChannel!.sink.add(jsonEncode(message.toJson()));
     return true;
   }
 
@@ -236,7 +236,7 @@ class Client {
   bool sendTypingStatus(TypingStatus status) {
     if (!isActive) return false;
 
-    _socketChannel!.sink.add(status.toJSON());
+    _socketChannel!.sink.add(jsonEncode(status.toJson()));
     return true;
   }
 
@@ -244,7 +244,7 @@ class Client {
   bool editMessage(EditMessage message) {
     if (!isActive) return false;
 
-    _socketChannel!.sink.add(message.toJSON());
+    _socketChannel!.sink.add(jsonEncode(message.toJson()));
     return true;
   }
 
@@ -253,7 +253,7 @@ class Client {
   bool deleteMessage(DeleteMessage message) {
     if (!isActive) return false;
 
-    _socketChannel!.sink.add(message.toJSON());
+    _socketChannel!.sink.add(jsonEncode(message.toJson()));
     return true;
   }
 }

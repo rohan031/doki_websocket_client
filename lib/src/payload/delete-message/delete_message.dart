@@ -1,7 +1,10 @@
-import 'dart:convert';
-
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
+import 'package:doki_websocket_client/src/utils/json_converter.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part "delete_message.g.dart";
+
+@JsonSerializable()
 class DeleteMessage {
   DeleteMessage({
     required this.from,
@@ -10,28 +13,16 @@ class DeleteMessage {
     required this.everyone,
   }) : _payloadType = PayloadType.deleteMessage;
 
+  @JsonKey(includeToJson: true, name: "type")
   final PayloadType _payloadType;
   final String from;
   final String to;
   final List<String> id;
+  @BoolConverter()
   final bool everyone;
 
-  static DeleteMessage fromJSON(Map<String, dynamic> json) {
-    return DeleteMessage(
-      from: json["from"],
-      to: json["to"],
-      id: List<String>.from(json["id"]),
-      everyone: bool.parse(json["everyone"]),
-    );
-  }
+  factory DeleteMessage.fromJson(Map<String, dynamic> json) =>
+      _$DeleteMessageFromJson(json);
 
-  String toJSON() {
-    return jsonEncode({
-      "type": _payloadType.value,
-      "from": from,
-      "to": to,
-      "id": id,
-      "everyone": everyone.toString(),
-    });
-  }
+  Map<String, dynamic> toJson() => _$DeleteMessageToJson(this);
 }

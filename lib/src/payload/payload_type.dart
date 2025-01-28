@@ -1,33 +1,22 @@
+import 'package:json_annotation/json_annotation.dart';
+
 enum PayloadType {
+  @JsonValue("chat_message")
   chatMessage,
-  // groupChatMessage,
+
+  @JsonValue("typing_status")
   typingStatus,
+
+  @JsonValue("edit_message")
   editMessage,
+
+  @JsonValue("delete_message")
   deleteMessage;
 }
 
-extension PayloadTypeValue on PayloadType {
-  String get value {
-    switch (this) {
-      case PayloadType.chatMessage:
-        return "chat_message";
-      // case PayloadType.groupChatMessage:
-      //   return "group_chat_message";
-      case PayloadType.typingStatus:
-        return "typing_status";
-      case PayloadType.editMessage:
-        return "edit_message";
-      case PayloadType.deleteMessage:
-        return "delete_message";
-    }
-  }
-
-  static PayloadType? fromValue(String value) {
-    for (PayloadType type in PayloadType.values) {
-      if (type.value == value) {
-        return type;
-      }
-    }
-    return null;
-  }
-}
+const payloadTypeMap = {
+  'chat_message': PayloadType.chatMessage,
+  'typing_status': PayloadType.typingStatus,
+  'edit_message': PayloadType.editMessage,
+  'delete_message': PayloadType.deleteMessage,
+};
