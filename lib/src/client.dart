@@ -4,11 +4,14 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
-import 'package:doki_websocket_client/src/payload/chat-message/chat_message.dart';
-import 'package:doki_websocket_client/src/payload/delete-message/delete_message.dart';
-import 'package:doki_websocket_client/src/payload/edit-message/edit_message.dart';
+import 'package:doki_websocket_client/src/payload/instant-messaging/chat-message/chat_message.dart';
+import 'package:doki_websocket_client/src/payload/instant-messaging/delete-message/delete_message.dart';
+import 'package:doki_websocket_client/src/payload/instant-messaging/edit-message/edit_message.dart';
+import 'package:doki_websocket_client/src/payload/instant-messaging/typing-status/typing_status.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
-import 'package:doki_websocket_client/src/payload/typing-status/typing_status.dart';
+import 'package:doki_websocket_client/src/payload/user-related-actions/user-accept-friend-request/user_accept_friend_request.dart';
+import 'package:doki_websocket_client/src/payload/user-related-actions/user-removes-friend-relation/user_removes_friend_relation.dart';
+import 'package:doki_websocket_client/src/payload/user-related-actions/user-send-friend-request/user_send_friend_request.dart';
 import 'package:doki_websocket_client/src/utils/generate_string.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -35,6 +38,9 @@ class Client {
     required this.onDeleteMessageReceived,
     required this.onReconnectSuccess,
     required this.onConnectionClosure,
+    required this.onUserSendFriendRequest,
+    required this.onUserAcceptFriendRequest,
+    required this.onUserRemovesFriendRelation,
   }) : _resource = generateResource();
 
   /// url is the websocket connection uri
@@ -78,6 +84,16 @@ class Client {
   /// and then call the retry callback
   final ValueSetter<VoidCallback> onConnectionClosure;
 
+  /// onUserSendFriendRequest is invoked when someone or some resource of the same user
+  /// sends the request to some user
+  final ValueSetter<UserSendFriendRequest> onUserSendFriendRequest;
+
+  /// onUserAcceptFriendRequest is invoked when someone or some resource of the same user
+  /// accepts the incoming friend request
+  final ValueSetter<UserAcceptFriendRequest> onUserAcceptFriendRequest;
+
+  final ValueSetter<UserRemovesFriendRelation> onUserRemovesFriendRelation;
+
   /// socketChannel holds the underlying [IOWebSocketChannel]
   /// provided by the web_socket_channel package
   IOWebSocketChannel? _socketChannel;
@@ -85,6 +101,8 @@ class Client {
   /// isActive is used by client to check
   /// if underlying [WebSocket] connection is alive
   bool get isActive => _socketChannel != null;
+
+  bool get isNotActive => _socketChannel == null;
 
   /// isManuallyClosed is to prevent retrying of connection after [disconnect] is called
   /// [disconnect] should be called when exiting the app to free up any used resources
@@ -178,26 +196,36 @@ class Client {
 
   /// handleServerPayload decodes the incoming message and
   /// calls the respective callback for the payload
-  /// for this is using json, later will upgrade to protobuf
+  /// for now this is using json, later will upgrade to protobuf
   void _handleServerPayload(dynamic payload) {
     // decode payload to map
-    final messageMap = jsonDecode(payload) as Map<String, dynamic>;
-    PayloadType? type = payloadTypeMap[messageMap["type"]];
+    final payloadMap = jsonDecode(payload) as Map<String, dynamic>;
+    PayloadType? type = payloadTypeMap[payloadMap["type"]];
     if (type == null) return;
 
     switch (type) {
       case PayloadType.chatMessage:
-        final message = ChatMessage.fromJson(messageMap);
+        final message = ChatMessage.fromJson(payloadMap);
         onChatMessageReceived(message);
       case PayloadType.typingStatus:
-        final message = TypingStatus.fromJson(messageMap);
+        final message = TypingStatus.fromJson(payloadMap);
         onTypingStatusReceived(message);
       case PayloadType.editMessage:
-        final message = EditMessage.fromJson(messageMap);
+        final message = EditMessage.fromJson(payloadMap);
         onEditMessageReceived(message);
       case PayloadType.deleteMessage:
-        final message = DeleteMessage.fromJson(messageMap);
+        final message = DeleteMessage.fromJson(payloadMap);
         onDeleteMessageReceived(message);
+      case PayloadType.userSendFriendRequest:
+        final request = UserSendFriendRequest.fromJson(payloadMap);
+        onUserSendFriendRequest(request);
+      case PayloadType.userAcceptFriendRequest:
+        final request = UserAcceptFriendRequest.fromJson(payloadMap);
+        onUserAcceptFriendRequest(request);
+      case PayloadType.userRemovesFriendRelation:
+        final relation = UserRemovesFriendRelation.fromJson(payloadMap);
+        onUserRemovesFriendRelation(relation);
+      // default:
     }
   }
 
@@ -208,64 +236,91 @@ class Client {
       BaseInstantMessagingPayload payload = undelivered.first;
       undelivered.removeFirst();
 
-      _sendMessagingPayload(payload);
+      _sendPayload(payload);
     }
   }
 
   /// disconnect closes the underlying websocket connection to the server
   /// with [status.normalClosure]
   void disconnect() {
-    if (!isActive) return;
+    if (isNotActive) return;
 
     _isManuallyClosed = true;
     _socketChannel!.sink.close(status.normalClosure);
     _socketChannel = null;
   }
 
-  void _sendMessagingPayload(BaseInstantMessagingPayload payload) {
+  void _sendPayload(BaseInstantMessagingPayload payload) {
     _socketChannel?.sink.add(jsonEncode(payload.toJson()));
   }
 
   /// sendMessage method is used to send message to particular user
   bool sendMessage(ChatMessage message) {
-    if (!isActive) {
+    if (isNotActive) {
       undelivered.add(message);
       return false;
     }
 
-    _sendMessagingPayload(message);
+    _sendPayload(message);
     return true;
   }
 
   /// sendTypingStatus method is used to send typing status to particular user
   bool sendTypingStatus(TypingStatus status) {
-    if (!isActive) {
+    if (isNotActive) {
       return false;
     }
 
-    _sendMessagingPayload(status);
+    _sendPayload(status);
     return true;
   }
 
   /// editMessage method is used to edit user's own message
   bool editMessage(EditMessage message) {
-    if (!isActive) {
+    if (isNotActive) {
       // undelivered.add(message);
       return false;
     }
 
-    _sendMessagingPayload(message);
+    _sendPayload(message);
     return true;
   }
 
   /// deleteMessage is used to delete any message for them
   /// additionally it also allows to delete message for everyone that is our own message
   bool deleteMessage(DeleteMessage message) {
-    if (!isActive) {
+    if (isNotActive) {
       // undelivered.add(message);
       return false;
     }
-    _sendMessagingPayload(message);
+    _sendPayload(message);
+    return true;
+  }
+
+  bool userSendFriendRequest(UserSendFriendRequest request) {
+    if (isNotActive) {
+      return false;
+    }
+
+    _sendPayload(request);
+    return true;
+  }
+
+  bool userAcceptFriendRequest(UserAcceptFriendRequest request) {
+    if (isNotActive) {
+      return false;
+    }
+
+    _sendPayload(request);
+    return true;
+  }
+
+  bool userRemovesFriendRelation(UserRemovesFriendRelation relation) {
+    if (isNotActive) {
+      return false;
+    }
+
+    _sendPayload(relation);
     return true;
   }
 }

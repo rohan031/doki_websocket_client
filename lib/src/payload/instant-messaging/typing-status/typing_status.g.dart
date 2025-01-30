@@ -1,26 +1,21 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'delete_message.dart';
+part of 'typing_status.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DeleteMessage _$DeleteMessageFromJson(Map<String, dynamic> json) =>
-    DeleteMessage(
+TypingStatus _$TypingStatusFromJson(Map<String, dynamic> json) => TypingStatus(
       from: json['from'] as String,
       to: json['to'] as String,
-      id: (json['id'] as List<dynamic>).map((e) => e as String).toList(),
-      everyone: const BoolConverter().fromJson(json['everyone'] as String),
     );
 
-Map<String, dynamic> _$DeleteMessageToJson(DeleteMessage instance) =>
+Map<String, dynamic> _$TypingStatusToJson(TypingStatus instance) =>
     <String, dynamic>{
       'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
-      'id': instance.id,
-      'everyone': const BoolConverter().toJson(instance.everyone),
     };
 
 const _$PayloadTypeEnumMap = {
@@ -28,4 +23,7 @@ const _$PayloadTypeEnumMap = {
   PayloadType.typingStatus: 'typing_status',
   PayloadType.editMessage: 'edit_message',
   PayloadType.deleteMessage: 'delete_message',
+  PayloadType.userSendFriendRequest: 'user_send_friend_request',
+  PayloadType.userAcceptFriendRequest: 'user_accepted_friend_request',
+  PayloadType.userRemovesFriendRelation: 'user_removes_friend_relation',
 };

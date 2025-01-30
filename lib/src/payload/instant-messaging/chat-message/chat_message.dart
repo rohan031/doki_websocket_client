@@ -1,5 +1,5 @@
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
-import 'package:doki_websocket_client/src/payload/message-subject/message_subject.dart';
+import 'package:doki_websocket_client/src/payload/instant-messaging/message-subject/message_subject.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/utils/json_converter.dart';
 import 'package:json_annotation/json_annotation.dart';

@@ -11,7 +11,16 @@ enum PayloadType {
   editMessage,
 
   @JsonValue("delete_message")
-  deleteMessage;
+  deleteMessage,
+
+  @JsonValue("user_send_friend_request")
+  userSendFriendRequest,
+
+  @JsonValue("user_accepted_friend_request")
+  userAcceptFriendRequest,
+
+  @JsonValue("user_removes_friend_relation")
+  userRemovesFriendRelation,
 }
 
 const payloadTypeMap = {
@@ -19,4 +28,7 @@ const payloadTypeMap = {
   'typing_status': PayloadType.typingStatus,
   'edit_message': PayloadType.editMessage,
   'delete_message': PayloadType.deleteMessage,
+  'user_accepted_friend_request': PayloadType.userAcceptFriendRequest,
+  'user_send_friend_request': PayloadType.userSendFriendRequest,
+  'user_removes_friend_relation': PayloadType.userRemovesFriendRelation,
 };
