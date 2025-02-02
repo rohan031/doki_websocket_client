@@ -6,7 +6,7 @@ import 'package:doki_websocket_client/src/payload/user-profile-actions/user-upda
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 Future<String> getToken() async {
-  return "return-your-token-here";
+  return "your-token-here";
 }
 
 void main() async {
@@ -38,8 +38,12 @@ void main() async {
       print("user removes friend relation");
       print(relation.toJson());
     },
-    onUserCreateRootNode: (UserCreateRootNode payload) {},
-    onUserUpdateProfile: (UserUpdateProfile payload) {},
+    onUserCreateRootNode: (UserCreateRootNode payload) {
+      print(payload.toJson());
+    },
+    onUserUpdateProfile: (UserUpdateProfile payload) {
+      print(payload.toJson());
+    },
   );
 
   try {
