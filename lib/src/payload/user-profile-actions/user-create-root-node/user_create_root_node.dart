@@ -11,7 +11,7 @@ class UserCreateRootNode implements BasePayload {
     required this.from,
     required this.id,
     required this.nodeType,
-  }) : _payloadType = PayloadType.userUpdateProfile;
+  }) : _payloadType = PayloadType.userCreateRootNode;
 
   @JsonKey(includeToJson: true, name: "type")
   final PayloadType _payloadType;
