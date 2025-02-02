@@ -1,4 +1,4 @@
 /// base class for all other instant messaging payload types
-abstract class BaseInstantMessagingPayload {
+abstract class BasePayload {
   Map<String, dynamic> toJson();
 }

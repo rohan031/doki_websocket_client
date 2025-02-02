@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "user_send_friend_request.g.dart";
 
 @JsonSerializable()
-class UserSendFriendRequest implements BaseInstantMessagingPayload {
+class UserSendFriendRequest implements BasePayload {
   UserSendFriendRequest({
     required this.from,
     required this.to,

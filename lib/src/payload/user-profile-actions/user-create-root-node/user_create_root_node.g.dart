@@ -1,25 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_removes_friend_relation.dart';
+part of 'user_create_root_node.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserRemovesFriendRelation _$UserRemovesFriendRelationFromJson(
-        Map<String, dynamic> json) =>
-    UserRemovesFriendRelation(
+UserCreateRootNode _$UserCreateRootNodeFromJson(Map<String, dynamic> json) =>
+    UserCreateRootNode(
       from: json['from'] as String,
-      to: json['to'] as String,
+      id: json['id'] as String,
+      nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
     );
 
-Map<String, dynamic> _$UserRemovesFriendRelationToJson(
-        UserRemovesFriendRelation instance) =>
+Map<String, dynamic> _$UserCreateRootNodeToJson(UserCreateRootNode instance) =>
     <String, dynamic>{
       'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
-      'to': instance.to,
+      'id': instance.id,
+      'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
     };
+
+const _$NodeTypeEnumMap = {
+  NodeType.post: 'post',
+  NodeType.comment: 'comment',
+  NodeType.discussion: 'discussion',
+};
 
 const _$PayloadTypeEnumMap = {
   PayloadType.chatMessage: 'chat_message',

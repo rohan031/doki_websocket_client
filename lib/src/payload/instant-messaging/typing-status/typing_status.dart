@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "typing_status.g.dart";
 
 @JsonSerializable()
-class TypingStatus implements BaseInstantMessagingPayload {
+class TypingStatus implements BasePayload {
   const TypingStatus({
     required this.from,
     required this.to,

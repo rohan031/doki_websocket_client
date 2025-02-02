@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "edit_message.g.dart";
 
 @JsonSerializable()
-class EditMessage implements BaseInstantMessagingPayload {
+class EditMessage implements BasePayload {
   EditMessage({
     required this.from,
     required this.to,

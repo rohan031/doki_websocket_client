@@ -7,7 +7,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "chat_message.g.dart";
 
 @JsonSerializable()
-class ChatMessage implements BaseInstantMessagingPayload {
+class ChatMessage implements BasePayload {
   ChatMessage({
     required this.from,
     required this.to,

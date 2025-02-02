@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_removes_friend_relation.dart';
+part of 'user_edit_profile.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserRemovesFriendRelation _$UserRemovesFriendRelationFromJson(
-        Map<String, dynamic> json) =>
-    UserRemovesFriendRelation(
+UserEditProfile _$UserEditProfileFromJson(Map<String, dynamic> json) =>
+    UserEditProfile(
       from: json['from'] as String,
-      to: json['to'] as String,
+      bio: json['bio'] as String,
+      name: json['name'] as String,
+      profilePicture: json['profilePicture'] as String,
     );
 
-Map<String, dynamic> _$UserRemovesFriendRelationToJson(
-        UserRemovesFriendRelation instance) =>
+Map<String, dynamic> _$UserEditProfileToJson(UserEditProfile instance) =>
     <String, dynamic>{
       'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
-      'to': instance.to,
+      'name': instance.name,
+      'profilePicture': instance.profilePicture,
+      'bio': instance.bio,
     };
 
 const _$PayloadTypeEnumMap = {

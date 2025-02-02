@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "delete_message.g.dart";
 
 @JsonSerializable()
-class DeleteMessage implements BaseInstantMessagingPayload {
+class DeleteMessage implements BasePayload {
   DeleteMessage({
     required this.from,
     required this.to,

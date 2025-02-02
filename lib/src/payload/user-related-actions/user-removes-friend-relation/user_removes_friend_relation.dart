@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part "user_removes_friend_relation.g.dart";
 
 @JsonSerializable()
-class UserRemovesFriendRelation implements BaseInstantMessagingPayload {
+class UserRemovesFriendRelation implements BasePayload {
   UserRemovesFriendRelation({
     required this.from,
     required this.to,

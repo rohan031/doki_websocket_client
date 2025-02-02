@@ -94,6 +94,8 @@ class Client {
 
   final ValueSetter<UserRemovesFriendRelation> onUserRemovesFriendRelation;
 
+  ///
+
   /// socketChannel holds the underlying [IOWebSocketChannel]
   /// provided by the web_socket_channel package
   IOWebSocketChannel? _socketChannel;
@@ -116,7 +118,7 @@ class Client {
   /// used to retry sending these messages
   /// messages are only stored for the particular session of application
   /// if application is terminated than queue will also be cleared
-  Queue<BaseInstantMessagingPayload> undelivered = Queue();
+  Queue<BasePayload> undelivered = Queue();
 
   /// connect is used to connect to the websocket server
   /// if an existing connection exists it does nothing
@@ -226,6 +228,12 @@ class Client {
         final relation = UserRemovesFriendRelation.fromJson(payloadMap);
         onUserRemovesFriendRelation(relation);
       // default:
+      case PayloadType.userUpdateProfile:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case PayloadType.userCreateRootNode:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 
@@ -233,7 +241,7 @@ class Client {
   /// is back
   void _handleUndelivered() {
     while (undelivered.isNotEmpty) {
-      BaseInstantMessagingPayload payload = undelivered.first;
+      BasePayload payload = undelivered.first;
       undelivered.removeFirst();
 
       _sendPayload(payload);
@@ -250,7 +258,7 @@ class Client {
     _socketChannel = null;
   }
 
-  void _sendPayload(BaseInstantMessagingPayload payload) {
+  void _sendPayload(BasePayload payload) {
     _socketChannel?.sink.add(jsonEncode(payload.toJson()));
   }
 
