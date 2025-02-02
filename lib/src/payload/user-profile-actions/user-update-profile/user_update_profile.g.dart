@@ -1,20 +1,20 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_edit_profile.dart';
+part of 'user_update_profile.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserEditProfile _$UserEditProfileFromJson(Map<String, dynamic> json) =>
-    UserEditProfile(
+UserUpdateProfile _$UserUpdateProfileFromJson(Map<String, dynamic> json) =>
+    UserUpdateProfile(
       from: json['from'] as String,
       bio: json['bio'] as String,
       name: json['name'] as String,
       profilePicture: json['profilePicture'] as String,
     );
 
-Map<String, dynamic> _$UserEditProfileToJson(UserEditProfile instance) =>
+Map<String, dynamic> _$UserUpdateProfileToJson(UserUpdateProfile instance) =>
     <String, dynamic>{
       'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,

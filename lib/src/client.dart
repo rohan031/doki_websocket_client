@@ -9,6 +9,8 @@ import 'package:doki_websocket_client/src/payload/instant-messaging/delete-messa
 import 'package:doki_websocket_client/src/payload/instant-messaging/edit-message/edit_message.dart';
 import 'package:doki_websocket_client/src/payload/instant-messaging/typing-status/typing_status.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
+import 'package:doki_websocket_client/src/payload/user-profile-actions/user-create-root-node/user_create_root_node.dart';
+import 'package:doki_websocket_client/src/payload/user-profile-actions/user-update-profile/user_update_profile.dart';
 import 'package:doki_websocket_client/src/payload/user-related-actions/user-accept-friend-request/user_accept_friend_request.dart';
 import 'package:doki_websocket_client/src/payload/user-related-actions/user-removes-friend-relation/user_removes_friend_relation.dart';
 import 'package:doki_websocket_client/src/payload/user-related-actions/user-send-friend-request/user_send_friend_request.dart';
@@ -41,6 +43,8 @@ class Client {
     required this.onUserSendFriendRequest,
     required this.onUserAcceptFriendRequest,
     required this.onUserRemovesFriendRelation,
+    required this.onUserCreateRootNode,
+    required this.onUserUpdateProfile,
   }) : _resource = generateResource();
 
   /// url is the websocket connection uri
@@ -94,7 +98,13 @@ class Client {
 
   final ValueSetter<UserRemovesFriendRelation> onUserRemovesFriendRelation;
 
-  ///
+  /// onUserUpdateProfile is invoked when user edits his her profile
+  /// this will be used to sync the same user across different devices and when subscribed to the user
+  final ValueSetter<UserUpdateProfile> onUserUpdateProfile;
+
+  /// onUserCreateRootNode is called when remote user create new node like post, discussion
+  /// this will be used for syncing across same user but different device and also when particular user subscribes the user profile
+  final ValueSetter<UserCreateRootNode> onUserCreateRootNode;
 
   /// socketChannel holds the underlying [IOWebSocketChannel]
   /// provided by the web_socket_channel package
@@ -229,11 +239,11 @@ class Client {
         onUserRemovesFriendRelation(relation);
       // default:
       case PayloadType.userUpdateProfile:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        final payload = UserUpdateProfile.fromJson(payloadMap);
+        onUserUpdateProfile(payload);
       case PayloadType.userCreateRootNode:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        final payload = UserCreateRootNode.fromJson(payloadMap);
+        onUserCreateRootNode(payload);
     }
   }
 
@@ -329,6 +339,24 @@ class Client {
     }
 
     _sendPayload(relation);
+    return true;
+  }
+
+  bool userUpdateProfile(UserUpdateProfile payload) {
+    if (isNotActive) {
+      return false;
+    }
+
+    _sendPayload(payload);
+    return true;
+  }
+
+  bool userCreateRootNode(UserCreateRootNode payload) {
+    if (isNotActive) {
+      return false;
+    }
+
+    _sendPayload(payload);
     return true;
   }
 }

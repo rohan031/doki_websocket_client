@@ -2,11 +2,11 @@ import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part "user_edit_profile.g.dart";
+part "user_update_profile.g.dart";
 
 @JsonSerializable()
-class UserEditProfile implements BasePayload {
-  UserEditProfile({
+class UserUpdateProfile implements BasePayload {
+  UserUpdateProfile({
     required this.from,
     required this.bio,
     required this.name,
@@ -20,9 +20,9 @@ class UserEditProfile implements BasePayload {
   final String profilePicture;
   final String bio;
 
-  factory UserEditProfile.fromJson(Map<String, dynamic> json) =>
-      _$UserEditProfileFromJson(json);
+  factory UserUpdateProfile.fromJson(Map<String, dynamic> json) =>
+      _$UserUpdateProfileFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$UserEditProfileToJson(this);
+  Map<String, dynamic> toJson() => _$UserUpdateProfileToJson(this);
 }
