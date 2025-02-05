@@ -31,4 +31,5 @@ const _$PayloadTypeEnumMap = {
   PayloadType.userRemovesFriendRelation: 'user_removes_friend_relation',
   PayloadType.userUpdateProfile: 'user_update_profile',
   PayloadType.userCreateRootNode: 'user_create_root_node',
+  PayloadType.unknown: 'unknown',
 };
