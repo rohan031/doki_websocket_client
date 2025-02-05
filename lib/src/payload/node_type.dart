@@ -1,6 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 enum NodeType {
+  @JsonValue("user")
+  user,
+
   @JsonValue("post")
   post,
 

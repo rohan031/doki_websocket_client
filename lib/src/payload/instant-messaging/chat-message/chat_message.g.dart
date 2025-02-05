@@ -56,4 +56,5 @@ const _$PayloadTypeEnumMap = {
   PayloadType.userUpdateProfile: 'user_update_profile',
   PayloadType.userCreateRootNode: 'user_create_root_node',
   PayloadType.unknown: 'unknown',
+  PayloadType.userNodeLikeAction: 'user_node_like_action',
 };

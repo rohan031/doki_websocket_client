@@ -1,24 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_create_root_node.dart';
+part of 'user_node_like_action.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserCreateRootNode _$UserCreateRootNodeFromJson(Map<String, dynamic> json) =>
-    UserCreateRootNode(
+UserNodeLikeAction _$UserNodeLikeActionFromJson(Map<String, dynamic> json) =>
+    UserNodeLikeAction(
       from: json['from'] as String,
-      id: json['id'] as String,
+      to: json['to'] as String,
+      isLike: json['isLike'] as bool,
+      likeCount: (json['likeCount'] as num).toInt(),
+      commentCount: (json['commentCount'] as num).toInt(),
+      nodeId: json['nodeId'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
+      parents: (json['parents'] as List<dynamic>)
+          .map((e) => UserNodeType.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$UserCreateRootNodeToJson(UserCreateRootNode instance) =>
+Map<String, dynamic> _$UserNodeLikeActionToJson(UserNodeLikeAction instance) =>
     <String, dynamic>{
       'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
-      'id': instance.id,
+      'to': instance.to,
+      'isLike': instance.isLike,
+      'likeCount': instance.likeCount,
+      'commentCount': instance.commentCount,
+      'nodeId': instance.nodeId,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
+      'parents': instance.parents,
     };
 
 const _$NodeTypeEnumMap = {

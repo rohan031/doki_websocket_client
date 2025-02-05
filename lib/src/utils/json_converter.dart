@@ -14,6 +14,7 @@ class UTCDateTimeConverter implements JsonConverter<DateTime, String> {
   }
 }
 
+@Deprecated("User json bool")
 class BoolConverter implements JsonConverter<bool, String> {
   const BoolConverter();
 
