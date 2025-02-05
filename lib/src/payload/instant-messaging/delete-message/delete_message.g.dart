@@ -11,7 +11,7 @@ DeleteMessage _$DeleteMessageFromJson(Map<String, dynamic> json) =>
       from: json['from'] as String,
       to: json['to'] as String,
       id: (json['id'] as List<dynamic>).map((e) => e as String).toList(),
-      everyone: const BoolConverter().fromJson(json['everyone'] as String),
+      everyone: json['everyone'] as bool,
     );
 
 Map<String, dynamic> _$DeleteMessageToJson(DeleteMessage instance) =>
@@ -20,7 +20,7 @@ Map<String, dynamic> _$DeleteMessageToJson(DeleteMessage instance) =>
       'from': instance.from,
       'to': instance.to,
       'id': instance.id,
-      'everyone': const BoolConverter().toJson(instance.everyone),
+      'everyone': instance.everyone,
     };
 
 const _$PayloadTypeEnumMap = {

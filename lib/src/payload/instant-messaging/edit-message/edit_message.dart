@@ -28,5 +28,6 @@ class EditMessage implements BasePayload {
   factory EditMessage.fromJson(Map<String, dynamic> json) =>
       _$EditMessageFromJson(json);
 
+  @override
   Map<String, dynamic> toJson() => _$EditMessageToJson(this);
 }

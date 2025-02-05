@@ -13,18 +13,3 @@ class UTCDateTimeConverter implements JsonConverter<DateTime, String> {
     return object.toUtc().toIso8601String();
   }
 }
-
-@Deprecated("User json bool")
-class BoolConverter implements JsonConverter<bool, String> {
-  const BoolConverter();
-
-  @override
-  bool fromJson(String json) {
-    return bool.parse(json);
-  }
-
-  @override
-  String toJson(bool object) {
-    return object.toString();
-  }
-}
