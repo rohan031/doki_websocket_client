@@ -16,7 +16,7 @@ class UserNodeLikeAction implements BasePayload {
     required this.nodeId,
     required this.nodeType,
     required this.parents,
-  }) : _payloadType = PayloadType.userUpdateProfile;
+  }) : _payloadType = PayloadType.userNodeLikeAction;
 
   @JsonKey(includeToJson: true, name: "type")
   final PayloadType _payloadType;
