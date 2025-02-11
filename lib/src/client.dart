@@ -24,7 +24,12 @@ class Client {
     required this.onReconnectSuccess,
     required this.onConnectionClosure,
     required this.payloadHandler,
+    this.pingInterval,
   }) : _resource = generateResource();
+
+  /// pingInterval defines the default ping interval clients required
+  /// if no pingInterval is passed default 30 seconds is used
+  Duration? pingInterval;
 
   /// payloadHandler contains all the handlers that are required by the client
   final Map<PayloadType, PayloadHandler> payloadHandler;
@@ -82,9 +87,10 @@ class Client {
     final websocketChannel = IOWebSocketChannel.connect(
       connectionUrl,
       headers: headers,
-      pingInterval: Duration(
-        seconds: 30,
-      ),
+      pingInterval: pingInterval ??
+          Duration(
+            seconds: 30,
+          ),
       connectTimeout: Duration(
         seconds: 30,
       ),
