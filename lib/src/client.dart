@@ -180,9 +180,13 @@ class Client {
     _socketChannel?.sink.add(jsonEncode(payload.toJson()));
   }
 
-  bool sendPayload(BasePayload payload) {
+  Future<bool> sendPayload(BasePayload payload) async {
     if (isNotActive) {
-      return false;
+      try {
+        await connect();
+      } catch (e) {
+        return false;
+      }
     }
 
     _sendPayload(payload);
