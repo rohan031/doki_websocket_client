@@ -6,12 +6,13 @@ part of 'user_node_type.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserNodeType _$UserNodeTypeFromJson(Map<String, dynamic> json) => UserNodeType(
+_$UserNodeTypeImpl _$$UserNodeTypeImplFromJson(Map<String, dynamic> json) =>
+    _$UserNodeTypeImpl(
       nodeId: json['nodeId'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
     );
 
-Map<String, dynamic> _$UserNodeTypeToJson(UserNodeType instance) =>
+Map<String, dynamic> _$$UserNodeTypeImplToJson(_$UserNodeTypeImpl instance) =>
     <String, dynamic>{
       'nodeId': instance.nodeId,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,

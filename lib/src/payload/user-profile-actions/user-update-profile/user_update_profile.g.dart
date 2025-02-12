@@ -6,21 +6,25 @@ part of 'user_update_profile.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserUpdateProfile _$UserUpdateProfileFromJson(Map<String, dynamic> json) =>
-    UserUpdateProfile(
+_$UserUpdateProfileImpl _$$UserUpdateProfileImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserUpdateProfileImpl(
       from: json['from'] as String,
       bio: json['bio'] as String,
       name: json['name'] as String,
       profilePicture: json['profilePicture'] as String,
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.userUpdateProfile,
     );
 
-Map<String, dynamic> _$UserUpdateProfileToJson(UserUpdateProfile instance) =>
+Map<String, dynamic> _$$UserUpdateProfileImplToJson(
+        _$UserUpdateProfileImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
+      'bio': instance.bio,
       'name': instance.name,
       'profilePicture': instance.profilePicture,
-      'bio': instance.bio,
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$PayloadTypeEnumMap = {

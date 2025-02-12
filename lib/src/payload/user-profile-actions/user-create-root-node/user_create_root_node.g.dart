@@ -6,19 +6,23 @@ part of 'user_create_root_node.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserCreateRootNode _$UserCreateRootNodeFromJson(Map<String, dynamic> json) =>
-    UserCreateRootNode(
+_$UserCreateRootNodeImpl _$$UserCreateRootNodeImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserCreateRootNodeImpl(
       from: json['from'] as String,
       id: json['id'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.userCreateRootNode,
     );
 
-Map<String, dynamic> _$UserCreateRootNodeToJson(UserCreateRootNode instance) =>
+Map<String, dynamic> _$$UserCreateRootNodeImplToJson(
+        _$UserCreateRootNodeImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'id': instance.id,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$NodeTypeEnumMap = {
