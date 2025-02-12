@@ -1,33 +1,22 @@
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/utils/json_converter.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part "edit_message.freezed.dart";
 part "edit_message.g.dart";
 
-@JsonSerializable()
-class EditMessage implements BasePayload {
-  EditMessage({
-    required this.from,
-    required this.to,
-    required this.id,
-    required this.body,
-    DateTime? editedOn,
-  })  : _payloadType = PayloadType.editMessage,
-        editedOn = editedOn ?? DateTime.now();
-
-  @JsonKey(includeToJson: true, name: "type")
-  final PayloadType _payloadType;
-  final String from;
-  final String to;
-  final String id;
-  final String body;
-  @UTCDateTimeConverter()
-  final DateTime editedOn;
+@freezed
+class EditMessage with _$EditMessage implements BasePayload {
+  const factory EditMessage({
+    required String from,
+    required String to,
+    required String id,
+    required String body,
+    @UTCDateTimeConverter() required DateTime editedOn,
+    @Default(PayloadType.editMessage) PayloadType type,
+  }) = _EditMessage;
 
   factory EditMessage.fromJson(Map<String, dynamic> json) =>
       _$EditMessageFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => _$EditMessageToJson(this);
 }

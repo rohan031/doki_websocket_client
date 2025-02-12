@@ -6,30 +6,27 @@ part of 'edit_message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-EditMessage _$EditMessageFromJson(Map<String, dynamic> json) => EditMessage(
+_$EditMessageImpl _$$EditMessageImplFromJson(Map<String, dynamic> json) =>
+    _$EditMessageImpl(
       from: json['from'] as String,
       to: json['to'] as String,
       id: json['id'] as String,
       body: json['body'] as String,
-      editedOn: _$JsonConverterFromJson<String, DateTime>(
-          json['editedOn'], const UTCDateTimeConverter().fromJson),
+      editedOn:
+          const UTCDateTimeConverter().fromJson(json['editedOn'] as String),
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.editMessage,
     );
 
-Map<String, dynamic> _$EditMessageToJson(EditMessage instance) =>
+Map<String, dynamic> _$$EditMessageImplToJson(_$EditMessageImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
       'id': instance.id,
       'body': instance.body,
       'editedOn': const UTCDateTimeConverter().toJson(instance.editedOn),
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
 
 const _$PayloadTypeEnumMap = {
   PayloadType.chatMessage: 'chat_message',

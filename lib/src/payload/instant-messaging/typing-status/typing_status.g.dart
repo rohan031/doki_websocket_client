@@ -6,16 +6,19 @@ part of 'typing_status.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-TypingStatus _$TypingStatusFromJson(Map<String, dynamic> json) => TypingStatus(
+_$TypingStatusImpl _$$TypingStatusImplFromJson(Map<String, dynamic> json) =>
+    _$TypingStatusImpl(
       from: json['from'] as String,
       to: json['to'] as String,
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.typingStatus,
     );
 
-Map<String, dynamic> _$TypingStatusToJson(TypingStatus instance) =>
+Map<String, dynamic> _$$TypingStatusImplToJson(_$TypingStatusImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$PayloadTypeEnumMap = {

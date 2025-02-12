@@ -6,25 +6,27 @@ part of 'chat_message.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatMessage _$ChatMessageFromJson(Map<String, dynamic> json) => ChatMessage(
+_$ChatMessageImpl _$$ChatMessageImplFromJson(Map<String, dynamic> json) =>
+    _$ChatMessageImpl(
       from: json['from'] as String,
       to: json['to'] as String,
       id: json['id'] as String,
       subject: $enumDecode(_$MessageSubjectEnumMap, json['subject']),
       body: json['body'] as String,
-      sendAt: _$JsonConverterFromJson<String, DateTime>(
-          json['sendAt'], const UTCDateTimeConverter().fromJson),
+      sendAt: const UTCDateTimeConverter().fromJson(json['sendAt'] as String),
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.chatMessage,
     );
 
-Map<String, dynamic> _$ChatMessageToJson(ChatMessage instance) =>
+Map<String, dynamic> _$$ChatMessageImplToJson(_$ChatMessageImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
       'id': instance.id,
       'subject': _$MessageSubjectEnumMap[instance.subject]!,
       'body': instance.body,
       'sendAt': const UTCDateTimeConverter().toJson(instance.sendAt),
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$MessageSubjectEnumMap = {
@@ -38,12 +40,6 @@ const _$MessageSubjectEnumMap = {
   MessageSubject.dokiDiscussion: 'doki@discussion',
   MessageSubject.dokiPolls: 'doki@polls',
 };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
 
 const _$PayloadTypeEnumMap = {
   PayloadType.chatMessage: 'chat_message',

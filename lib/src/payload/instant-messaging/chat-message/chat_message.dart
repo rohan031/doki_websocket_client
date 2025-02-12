@@ -2,46 +2,23 @@ import 'package:doki_websocket_client/src/payload/base_payload.dart';
 import 'package:doki_websocket_client/src/payload/instant-messaging/message-subject/message_subject.dart';
 import 'package:doki_websocket_client/src/payload/payload_type.dart';
 import 'package:doki_websocket_client/src/utils/json_converter.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part "chat_message.freezed.dart";
 part "chat_message.g.dart";
 
-@JsonSerializable()
-class ChatMessage implements BasePayload {
-  ChatMessage({
-    required this.from,
-    required this.to,
-    required this.id,
-    required this.subject,
-    required this.body,
-    DateTime? sendAt,
-  })  : _payloadType = PayloadType.chatMessage,
-        sendAt = sendAt ?? DateTime.now();
-
-  @JsonKey(includeToJson: true, name: "type")
-  final PayloadType _payloadType;
-  final String from;
-  final String to;
-  final String id;
-  final MessageSubject subject;
-  final String body;
-
-  @UTCDateTimeConverter()
-  final DateTime sendAt;
+@freezed
+class ChatMessage with _$ChatMessage implements BasePayload {
+  const factory ChatMessage({
+    required String from,
+    required String to,
+    required String id,
+    required MessageSubject subject,
+    required String body,
+    @UTCDateTimeConverter() required DateTime sendAt,
+    @Default(PayloadType.chatMessage) PayloadType type,
+  }) = _ChatMessage;
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageFromJson(json);
-
-  @override
-  Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
-
-  ChatMessage updateMessage({required String body}) {
-    return ChatMessage(
-      from: from,
-      to: to,
-      id: id,
-      subject: subject,
-      body: body,
-    );
-  }
 }
