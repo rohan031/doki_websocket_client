@@ -6,8 +6,9 @@ part of 'user_node_like_action.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserNodeLikeAction _$UserNodeLikeActionFromJson(Map<String, dynamic> json) =>
-    UserNodeLikeAction(
+_$UserNodeLikeActionImpl _$$UserNodeLikeActionImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserNodeLikeActionImpl(
       from: json['from'] as String,
       to: json['to'] as String,
       isLike: json['isLike'] as bool,
@@ -15,14 +16,14 @@ UserNodeLikeAction _$UserNodeLikeActionFromJson(Map<String, dynamic> json) =>
       commentCount: (json['commentCount'] as num).toInt(),
       nodeId: json['nodeId'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
-      parents: (json['parents'] as List<dynamic>)
-          .map((e) => UserNodeType.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      parents: UserNodeType.fromJson(json['parents'] as Map<String, dynamic>),
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.userNodeLikeAction,
     );
 
-Map<String, dynamic> _$UserNodeLikeActionToJson(UserNodeLikeAction instance) =>
+Map<String, dynamic> _$$UserNodeLikeActionImplToJson(
+        _$UserNodeLikeActionImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
       'isLike': instance.isLike,
@@ -31,6 +32,7 @@ Map<String, dynamic> _$UserNodeLikeActionToJson(UserNodeLikeAction instance) =>
       'nodeId': instance.nodeId,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
       'parents': instance.parents,
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$NodeTypeEnumMap = {
