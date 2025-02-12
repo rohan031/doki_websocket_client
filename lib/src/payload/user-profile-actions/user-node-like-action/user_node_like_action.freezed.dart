@@ -27,7 +27,7 @@ mixin _$UserNodeLikeAction {
   int get commentCount => throw _privateConstructorUsedError;
   String get nodeId => throw _privateConstructorUsedError;
   NodeType get nodeType => throw _privateConstructorUsedError;
-  UserNodeType get parents => throw _privateConstructorUsedError;
+  List<UserNodeType> get parents => throw _privateConstructorUsedError;
   PayloadType get type => throw _privateConstructorUsedError;
 
   /// Serializes this UserNodeLikeAction to a JSON map.
@@ -54,7 +54,7 @@ abstract class $UserNodeLikeActionCopyWith<$Res> {
       int commentCount,
       String nodeId,
       NodeType nodeType,
-      UserNodeType parents,
+      List<UserNodeType> parents,
       PayloadType type});
 }
 
@@ -115,7 +115,7 @@ class _$UserNodeLikeActionCopyWithImpl<$Res, $Val extends UserNodeLikeAction>
       parents: null == parents
           ? _value.parents
           : parents // ignore: cast_nullable_to_non_nullable
-              as UserNodeType,
+              as List<UserNodeType>,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ abstract class _$$UserNodeLikeActionImplCopyWith<$Res>
       int commentCount,
       String nodeId,
       NodeType nodeType,
-      UserNodeType parents,
+      List<UserNodeType> parents,
       PayloadType type});
 }
 
@@ -197,9 +197,9 @@ class __$$UserNodeLikeActionImplCopyWithImpl<$Res>
           : nodeType // ignore: cast_nullable_to_non_nullable
               as NodeType,
       parents: null == parents
-          ? _value.parents
+          ? _value._parents
           : parents // ignore: cast_nullable_to_non_nullable
-              as UserNodeType,
+              as List<UserNodeType>,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -219,8 +219,9 @@ class _$UserNodeLikeActionImpl implements _UserNodeLikeAction {
       required this.commentCount,
       required this.nodeId,
       required this.nodeType,
-      required this.parents,
-      this.type = PayloadType.userNodeLikeAction});
+      required final List<UserNodeType> parents,
+      this.type = PayloadType.userNodeLikeAction})
+      : _parents = parents;
 
   factory _$UserNodeLikeActionImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserNodeLikeActionImplFromJson(json);
@@ -239,8 +240,14 @@ class _$UserNodeLikeActionImpl implements _UserNodeLikeAction {
   final String nodeId;
   @override
   final NodeType nodeType;
+  final List<UserNodeType> _parents;
   @override
-  final UserNodeType parents;
+  List<UserNodeType> get parents {
+    if (_parents is EqualUnmodifiableListView) return _parents;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_parents);
+  }
+
   @override
   @JsonKey()
   final PayloadType type;
@@ -265,14 +272,23 @@ class _$UserNodeLikeActionImpl implements _UserNodeLikeAction {
             (identical(other.nodeId, nodeId) || other.nodeId == nodeId) &&
             (identical(other.nodeType, nodeType) ||
                 other.nodeType == nodeType) &&
-            (identical(other.parents, parents) || other.parents == parents) &&
+            const DeepCollectionEquality().equals(other._parents, _parents) &&
             (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, from, to, isLike, likeCount,
-      commentCount, nodeId, nodeType, parents, type);
+  int get hashCode => Object.hash(
+      runtimeType,
+      from,
+      to,
+      isLike,
+      likeCount,
+      commentCount,
+      nodeId,
+      nodeType,
+      const DeepCollectionEquality().hash(_parents),
+      type);
 
   /// Create a copy of UserNodeLikeAction
   /// with the given fields replaced by the non-null parameter values.
@@ -300,7 +316,7 @@ abstract class _UserNodeLikeAction implements UserNodeLikeAction {
       required final int commentCount,
       required final String nodeId,
       required final NodeType nodeType,
-      required final UserNodeType parents,
+      required final List<UserNodeType> parents,
       final PayloadType type}) = _$UserNodeLikeActionImpl;
 
   factory _UserNodeLikeAction.fromJson(Map<String, dynamic> json) =
@@ -321,7 +337,7 @@ abstract class _UserNodeLikeAction implements UserNodeLikeAction {
   @override
   NodeType get nodeType;
   @override
-  UserNodeType get parents;
+  List<UserNodeType> get parents;
   @override
   PayloadType get type;
 

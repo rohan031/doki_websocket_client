@@ -16,7 +16,9 @@ _$UserNodeLikeActionImpl _$$UserNodeLikeActionImplFromJson(
       commentCount: (json['commentCount'] as num).toInt(),
       nodeId: json['nodeId'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
-      parents: UserNodeType.fromJson(json['parents'] as Map<String, dynamic>),
+      parents: (json['parents'] as List<dynamic>)
+          .map((e) => UserNodeType.fromJson(e as Map<String, dynamic>))
+          .toList(),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
           PayloadType.userNodeLikeAction,
     );

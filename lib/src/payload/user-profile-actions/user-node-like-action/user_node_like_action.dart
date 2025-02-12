@@ -15,7 +15,7 @@ class UserNodeLikeAction with _$UserNodeLikeAction implements BasePayload {
     required int commentCount,
     required String nodeId,
     required NodeType nodeType,
-    required UserNodeType parents,
+    required List<UserNodeType> parents,
     @Default(PayloadType.userNodeLikeAction) PayloadType type,
   }) = _UserNodeLikeAction;
 
