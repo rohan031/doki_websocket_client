@@ -16,6 +16,10 @@ _$UserCreateSecondaryNodeImpl _$$UserCreateSecondaryNodeImplFromJson(
       parents: (json['parents'] as List<dynamic>)
           .map((e) => UserNodeType.fromJson(e as Map<String, dynamic>))
           .toList(),
+      replyOnNodeCreatedBy: json['replyOnNodeCreatedBy'] as String?,
+      mentions: (json['mentions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
           PayloadType.userNodeLikeAction,
     );
@@ -28,6 +32,9 @@ Map<String, dynamic> _$$UserCreateSecondaryNodeImplToJson(
       'nodeId': instance.nodeId,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
       'parents': instance.parents,
+      if (instance.replyOnNodeCreatedBy case final value?)
+        'replyOnNodeCreatedBy': value,
+      if (instance.mentions case final value?) 'mentions': value,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 

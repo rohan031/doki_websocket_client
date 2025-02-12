@@ -26,6 +26,8 @@ mixin _$UserCreateSecondaryNode {
   String get nodeId => throw _privateConstructorUsedError;
   NodeType get nodeType => throw _privateConstructorUsedError;
   List<UserNodeType> get parents => throw _privateConstructorUsedError;
+  String? get replyOnNodeCreatedBy => throw _privateConstructorUsedError;
+  List<String>? get mentions => throw _privateConstructorUsedError;
   PayloadType get type => throw _privateConstructorUsedError;
 
   /// Serializes this UserCreateSecondaryNode to a JSON map.
@@ -50,6 +52,8 @@ abstract class $UserCreateSecondaryNodeCopyWith<$Res> {
       String nodeId,
       NodeType nodeType,
       List<UserNodeType> parents,
+      String? replyOnNodeCreatedBy,
+      List<String>? mentions,
       PayloadType type});
 }
 
@@ -74,6 +78,8 @@ class _$UserCreateSecondaryNodeCopyWithImpl<$Res,
     Object? nodeId = null,
     Object? nodeType = null,
     Object? parents = null,
+    Object? replyOnNodeCreatedBy = freezed,
+    Object? mentions = freezed,
     Object? type = null,
   }) {
     return _then(_value.copyWith(
@@ -97,6 +103,14 @@ class _$UserCreateSecondaryNodeCopyWithImpl<$Res,
           ? _value.parents
           : parents // ignore: cast_nullable_to_non_nullable
               as List<UserNodeType>,
+      replyOnNodeCreatedBy: freezed == replyOnNodeCreatedBy
+          ? _value.replyOnNodeCreatedBy
+          : replyOnNodeCreatedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mentions: freezed == mentions
+          ? _value.mentions
+          : mentions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -120,6 +134,8 @@ abstract class _$$UserCreateSecondaryNodeImplCopyWith<$Res>
       String nodeId,
       NodeType nodeType,
       List<UserNodeType> parents,
+      String? replyOnNodeCreatedBy,
+      List<String>? mentions,
       PayloadType type});
 }
 
@@ -143,6 +159,8 @@ class __$$UserCreateSecondaryNodeImplCopyWithImpl<$Res>
     Object? nodeId = null,
     Object? nodeType = null,
     Object? parents = null,
+    Object? replyOnNodeCreatedBy = freezed,
+    Object? mentions = freezed,
     Object? type = null,
   }) {
     return _then(_$UserCreateSecondaryNodeImpl(
@@ -166,6 +184,14 @@ class __$$UserCreateSecondaryNodeImplCopyWithImpl<$Res>
           ? _value._parents
           : parents // ignore: cast_nullable_to_non_nullable
               as List<UserNodeType>,
+      replyOnNodeCreatedBy: freezed == replyOnNodeCreatedBy
+          ? _value.replyOnNodeCreatedBy
+          : replyOnNodeCreatedBy // ignore: cast_nullable_to_non_nullable
+              as String?,
+      mentions: freezed == mentions
+          ? _value._mentions
+          : mentions // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -175,7 +201,8 @@ class __$$UserCreateSecondaryNodeImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$UserCreateSecondaryNodeImpl implements _UserCreateSecondaryNode {
   const _$UserCreateSecondaryNodeImpl(
       {required this.from,
@@ -183,8 +210,11 @@ class _$UserCreateSecondaryNodeImpl implements _UserCreateSecondaryNode {
       required this.nodeId,
       required this.nodeType,
       required final List<UserNodeType> parents,
+      this.replyOnNodeCreatedBy,
+      final List<String>? mentions,
       this.type = PayloadType.userNodeLikeAction})
-      : _parents = parents;
+      : _parents = parents,
+        _mentions = mentions;
 
   factory _$UserCreateSecondaryNodeImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserCreateSecondaryNodeImplFromJson(json);
@@ -206,12 +236,24 @@ class _$UserCreateSecondaryNodeImpl implements _UserCreateSecondaryNode {
   }
 
   @override
+  final String? replyOnNodeCreatedBy;
+  final List<String>? _mentions;
+  @override
+  List<String>? get mentions {
+    final value = _mentions;
+    if (value == null) return null;
+    if (_mentions is EqualUnmodifiableListView) return _mentions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
   @JsonKey()
   final PayloadType type;
 
   @override
   String toString() {
-    return 'UserCreateSecondaryNode(from: $from, to: $to, nodeId: $nodeId, nodeType: $nodeType, parents: $parents, type: $type)';
+    return 'UserCreateSecondaryNode(from: $from, to: $to, nodeId: $nodeId, nodeType: $nodeType, parents: $parents, replyOnNodeCreatedBy: $replyOnNodeCreatedBy, mentions: $mentions, type: $type)';
   }
 
   @override
@@ -225,13 +267,24 @@ class _$UserCreateSecondaryNodeImpl implements _UserCreateSecondaryNode {
             (identical(other.nodeType, nodeType) ||
                 other.nodeType == nodeType) &&
             const DeepCollectionEquality().equals(other._parents, _parents) &&
+            (identical(other.replyOnNodeCreatedBy, replyOnNodeCreatedBy) ||
+                other.replyOnNodeCreatedBy == replyOnNodeCreatedBy) &&
+            const DeepCollectionEquality().equals(other._mentions, _mentions) &&
             (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, from, to, nodeId, nodeType,
-      const DeepCollectionEquality().hash(_parents), type);
+  int get hashCode => Object.hash(
+      runtimeType,
+      from,
+      to,
+      nodeId,
+      nodeType,
+      const DeepCollectionEquality().hash(_parents),
+      replyOnNodeCreatedBy,
+      const DeepCollectionEquality().hash(_mentions),
+      type);
 
   /// Create a copy of UserCreateSecondaryNode
   /// with the given fields replaced by the non-null parameter values.
@@ -257,6 +310,8 @@ abstract class _UserCreateSecondaryNode implements UserCreateSecondaryNode {
       required final String nodeId,
       required final NodeType nodeType,
       required final List<UserNodeType> parents,
+      final String? replyOnNodeCreatedBy,
+      final List<String>? mentions,
       final PayloadType type}) = _$UserCreateSecondaryNodeImpl;
 
   factory _UserCreateSecondaryNode.fromJson(Map<String, dynamic> json) =
@@ -272,6 +327,10 @@ abstract class _UserCreateSecondaryNode implements UserCreateSecondaryNode {
   NodeType get nodeType;
   @override
   List<UserNodeType> get parents;
+  @override
+  String? get replyOnNodeCreatedBy;
+  @override
+  List<String>? get mentions;
   @override
   PayloadType get type;
 

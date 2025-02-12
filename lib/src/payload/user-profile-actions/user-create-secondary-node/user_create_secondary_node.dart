@@ -6,13 +6,18 @@ part "user_create_secondary_node.freezed.dart";
 part "user_create_secondary_node.g.dart";
 
 @freezed
-class UserCreateSecondaryNode with _$UserCreateSecondaryNode implements BasePayload {
+class UserCreateSecondaryNode
+    with _$UserCreateSecondaryNode
+    implements BasePayload {
+  @JsonSerializable(includeIfNull: false)
   const factory UserCreateSecondaryNode({
     required String from,
     required String to,
     required String nodeId,
     required NodeType nodeType,
     required List<UserNodeType> parents,
+    String? replyOnNodeCreatedBy,
+    List<String>? mentions,
     @Default(PayloadType.userNodeLikeAction) PayloadType type,
   }) = _UserCreateSecondaryNode;
 
