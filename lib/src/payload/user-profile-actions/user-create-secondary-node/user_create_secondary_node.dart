@@ -18,7 +18,7 @@ class UserCreateSecondaryNode
     required List<UserNodeType> parents,
     String? replyOnNodeCreatedBy,
     List<String>? mentions,
-    @Default(PayloadType.userNodeLikeAction) PayloadType type,
+    @Default(PayloadType.userCreateSecondaryNode) PayloadType type,
   }) = _UserCreateSecondaryNode;
 
   factory UserCreateSecondaryNode.fromJson(Map<String, Object?> json) =>

@@ -212,7 +212,7 @@ class _$UserCreateSecondaryNodeImpl implements _UserCreateSecondaryNode {
       required final List<UserNodeType> parents,
       this.replyOnNodeCreatedBy,
       final List<String>? mentions,
-      this.type = PayloadType.userNodeLikeAction})
+      this.type = PayloadType.userCreateSecondaryNode})
       : _parents = parents,
         _mentions = mentions;
 

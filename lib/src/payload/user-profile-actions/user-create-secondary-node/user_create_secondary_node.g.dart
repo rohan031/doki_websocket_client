@@ -21,7 +21,7 @@ _$UserCreateSecondaryNodeImpl _$$UserCreateSecondaryNodeImplFromJson(
           ?.map((e) => e as String)
           .toList(),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
-          PayloadType.userNodeLikeAction,
+          PayloadType.userCreateSecondaryNode,
     );
 
 Map<String, dynamic> _$$UserCreateSecondaryNodeImplToJson(
