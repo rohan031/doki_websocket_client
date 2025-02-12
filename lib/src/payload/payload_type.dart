@@ -1,6 +1,5 @@
 import 'package:doki_websocket_client/doki_websocket_client.dart';
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
-import 'package:doki_websocket_client/src/payload/user-profile-actions/user-node-like-action/user_node_like_action.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 typedef PayloadDecoder = BasePayload Function(Map<String, dynamic> json);
@@ -70,6 +69,12 @@ enum PayloadType {
   userNodeLikeAction(
     value: "user_node_like_action",
     decoder: UserNodeLikeAction.fromJson,
+  ),
+
+  @JsonValue("user_create_secondary_node")
+  userCreateSecondaryNode(
+    value: "user_create_secondary_node",
+    decoder: UserCreateSecondaryNode.fromJson,
   );
 
   const PayloadType({

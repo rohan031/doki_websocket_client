@@ -9,6 +9,7 @@ export "src/payload/instant-messaging/typing-status/typing_status.dart";
 export "src/payload/node_type.dart";
 export "src/payload/payload_type.dart";
 export "src/payload/user-profile-actions/user-create-root-node/user_create_root_node.dart";
+export "src/payload/user-profile-actions/user-create-secondary-node/user_create_secondary_node.dart";
 export "src/payload/user-profile-actions/user-node-like-action/user_node_like_action.dart";
 export "src/payload/user-profile-actions/user-node-type/user_node_type.dart";
 export "src/payload/user-profile-actions/user-update-profile/user_update_profile.dart";

@@ -37,4 +37,5 @@ const _$PayloadTypeEnumMap = {
   PayloadType.userCreateRootNode: 'user_create_root_node',
   PayloadType.unknown: 'unknown',
   PayloadType.userNodeLikeAction: 'user_node_like_action',
+  PayloadType.userCreateSecondaryNode: 'user_create_secondary_node',
 };

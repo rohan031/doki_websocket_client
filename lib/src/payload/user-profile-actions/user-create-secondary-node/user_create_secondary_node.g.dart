@@ -1,19 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_node_like_action.dart';
+part of 'user_create_secondary_node.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserNodeLikeActionImpl _$$UserNodeLikeActionImplFromJson(
+_$UserCreateSecondaryNodeImpl _$$UserCreateSecondaryNodeImplFromJson(
         Map<String, dynamic> json) =>
-    _$UserNodeLikeActionImpl(
+    _$UserCreateSecondaryNodeImpl(
       from: json['from'] as String,
       to: json['to'] as String,
-      isLike: json['isLike'] as bool,
-      likeCount: (json['likeCount'] as num).toInt(),
-      commentCount: (json['commentCount'] as num).toInt(),
       nodeId: json['nodeId'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
       parents: (json['parents'] as List<dynamic>)
@@ -23,14 +20,11 @@ _$UserNodeLikeActionImpl _$$UserNodeLikeActionImplFromJson(
           PayloadType.userNodeLikeAction,
     );
 
-Map<String, dynamic> _$$UserNodeLikeActionImplToJson(
-        _$UserNodeLikeActionImpl instance) =>
+Map<String, dynamic> _$$UserCreateSecondaryNodeImplToJson(
+        _$UserCreateSecondaryNodeImpl instance) =>
     <String, dynamic>{
       'from': instance.from,
       'to': instance.to,
-      'isLike': instance.isLike,
-      'likeCount': instance.likeCount,
-      'commentCount': instance.commentCount,
       'nodeId': instance.nodeId,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
       'parents': instance.parents,
