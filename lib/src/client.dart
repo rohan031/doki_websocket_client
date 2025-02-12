@@ -189,7 +189,9 @@ class Client {
   Future<bool> sendPayload(BasePayload payload) async {
     if (isNotActive) {
       try {
+        bool callReconnect = _tries == -1;
         await connect();
+        if (callReconnect) onReconnectSuccess();
       } catch (e) {
         return false;
       }
