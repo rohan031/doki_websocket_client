@@ -6,19 +6,21 @@ part of 'user_removes_friend_relation.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserRemovesFriendRelation _$UserRemovesFriendRelationFromJson(
+_$UserRemovesFriendRelationImpl _$$UserRemovesFriendRelationImplFromJson(
         Map<String, dynamic> json) =>
-    UserRemovesFriendRelation(
+    _$UserRemovesFriendRelationImpl(
       from: json['from'] as String,
       to: json['to'] as String,
+      type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
+          PayloadType.userRemovesFriendRelation,
     );
 
-Map<String, dynamic> _$UserRemovesFriendRelationToJson(
-        UserRemovesFriendRelation instance) =>
+Map<String, dynamic> _$$UserRemovesFriendRelationImplToJson(
+        _$UserRemovesFriendRelationImpl instance) =>
     <String, dynamic>{
-      'type': _$PayloadTypeEnumMap[instance._payloadType]!,
       'from': instance.from,
       'to': instance.to,
+      'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
 const _$PayloadTypeEnumMap = {
