@@ -15,6 +15,7 @@ class ChatMessage with _$ChatMessage implements BasePayload {
     required String id,
     required MessageSubject subject,
     required String body,
+    String? replyOn,
     @UTCDateTimeConverter() required DateTime sendAt,
     @Default(PayloadType.chatMessage) PayloadType type,
   }) = _ChatMessage;
