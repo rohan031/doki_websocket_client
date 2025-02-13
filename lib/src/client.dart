@@ -155,7 +155,7 @@ class Client {
     // decode payload to map
     final payloadMap = jsonDecode(json) as Map<String, dynamic>;
     PayloadType payloadType = PayloadType.fromValue(payloadMap["type"]);
-    // PayloadType? type = payloadTypeMap[payloadMap["type"]];
+
     if (payloadType == PayloadType.unknown) {
       log("Encountered unknown payload type");
       return;

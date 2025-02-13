@@ -45,4 +45,6 @@ const _$PayloadTypeEnumMap = {
   PayloadType.unknown: 'unknown',
   PayloadType.userNodeLikeAction: 'user_node_like_action',
   PayloadType.userCreateSecondaryNode: 'user_create_secondary_node',
+  PayloadType.userPresenceSubscription: 'user_presence_subscription',
+  PayloadType.userPresenceInfo: 'user_presence_info',
 };

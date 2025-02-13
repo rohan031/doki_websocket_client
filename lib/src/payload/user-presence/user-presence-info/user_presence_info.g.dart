@@ -1,29 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_update_profile.dart';
+part of 'user_presence_info.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserUpdateProfileImpl _$$UserUpdateProfileImplFromJson(
+_$UserPresenceInfoImpl _$$UserPresenceInfoImplFromJson(
         Map<String, dynamic> json) =>
-    _$UserUpdateProfileImpl(
-      from: json['from'] as String,
-      bio: json['bio'] as String,
-      name: json['name'] as String,
-      profilePicture: json['profilePicture'] as String,
+    _$UserPresenceInfoImpl(
+      to: json['to'] as String,
+      online: json['online'] as bool,
+      user: json['user'] as String,
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
-          PayloadType.userUpdateProfile,
+          PayloadType.userPresenceInfo,
     );
 
-Map<String, dynamic> _$$UserUpdateProfileImplToJson(
-        _$UserUpdateProfileImpl instance) =>
+Map<String, dynamic> _$$UserPresenceInfoImplToJson(
+        _$UserPresenceInfoImpl instance) =>
     <String, dynamic>{
-      'from': instance.from,
-      'bio': instance.bio,
-      'name': instance.name,
-      'profilePicture': instance.profilePicture,
+      'to': instance.to,
+      'online': instance.online,
+      'user': instance.user,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 

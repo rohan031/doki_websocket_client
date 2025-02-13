@@ -1,5 +1,7 @@
 import 'package:doki_websocket_client/doki_websocket_client.dart';
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
+import 'package:doki_websocket_client/src/payload/user-presence/user-presence-info/user_presence_info.dart';
+import 'package:doki_websocket_client/src/payload/user-presence/user-presence-subscription/user_presence_subscription.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 typedef PayloadDecoder = BasePayload Function(Map<String, dynamic> json);
@@ -75,6 +77,18 @@ enum PayloadType {
   userCreateSecondaryNode(
     value: "user_create_secondary_node",
     decoder: UserCreateSecondaryNode.fromJson,
+  ),
+
+  @JsonValue("user_presence_subscription")
+  userPresenceSubscription(
+    value: "user_presence_subscription",
+    decoder: UserPresenceSubscription.fromJson,
+  ),
+
+  @JsonValue("user_presence_info")
+  userPresenceInfo(
+    value: "user_presence_info",
+    decoder: UserPresenceInfo.fromJson,
   );
 
   const PayloadType({
