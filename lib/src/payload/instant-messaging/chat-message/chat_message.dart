@@ -9,6 +9,7 @@ part "chat_message.g.dart";
 
 @freezed
 class ChatMessage with _$ChatMessage implements BasePayload {
+  @JsonSerializable(includeIfNull: false)
   const factory ChatMessage({
     required String from,
     required String to,

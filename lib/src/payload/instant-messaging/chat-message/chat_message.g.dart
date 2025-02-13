@@ -26,7 +26,7 @@ Map<String, dynamic> _$$ChatMessageImplToJson(_$ChatMessageImpl instance) =>
       'id': instance.id,
       'subject': _$MessageSubjectEnumMap[instance.subject]!,
       'body': instance.body,
-      'replyOn': instance.replyOn,
+      if (instance.replyOn case final value?) 'replyOn': value,
       'sendAt': const UTCDateTimeConverter().toJson(instance.sendAt),
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
