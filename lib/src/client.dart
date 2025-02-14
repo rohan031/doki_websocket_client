@@ -25,7 +25,7 @@ class Client {
     required this.onConnectionClosure,
     required this.payloadHandler,
     this.pingInterval,
-  }) : _resource = generateResource();
+  });
 
   /// pingInterval defines the default ping interval clients required
   /// if no pingInterval is passed default 30 seconds is used
@@ -43,7 +43,7 @@ class Client {
 
   /// resource part to identify each user session
   /// even if they are using same account but different device
-  final String _resource;
+  // final String _resource;
 
   /// onReconnectSuccess is invoked when user is successfully reconnected to the websocket server
   /// this method should be used to refetch the inbox and syncing of the archives after disconnect
@@ -71,46 +71,55 @@ class Client {
   /// tries is to manage number of reconnect request to server after termination of the connection
   int _tries = -1;
 
+  bool _connecting = false;
+
   /// connect is used to connect to the websocket server
   /// if an existing connection exists it does nothing
   Future<void> connect() async {
-    if (_socketChannel != null) return;
+    if (_socketChannel != null || _connecting) return;
+    _connecting = true;
 
-    String jwtToken = await getToken();
-    Map<String, dynamic> headers = {
-      "Authorization": "Bearer $jwtToken",
-    };
-    Uri connectionUrl = url.replace(queryParameters: {
-      "resource": _resource,
-    });
+    try {
+      String jwtToken = await getToken();
+      Map<String, dynamic> headers = {
+        "Authorization": "Bearer $jwtToken",
+      };
+      final resource = generateResource();
+      Uri connectionUrl = url.replace(queryParameters: {
+        "resource": resource,
+      });
 
-    final websocketChannel = IOWebSocketChannel.connect(
-      connectionUrl,
-      headers: headers,
-      pingInterval: pingInterval ??
-          Duration(
-            seconds: 30,
-          ),
-      connectTimeout: Duration(
-        seconds: 30,
-      ),
-    );
+      final websocketChannel = IOWebSocketChannel.connect(
+        connectionUrl,
+        headers: headers,
+        pingInterval: pingInterval ??
+            Duration(
+              seconds: 30,
+            ),
+        connectTimeout: Duration(
+          seconds: 30,
+        ),
+      );
 
-    await websocketChannel.ready;
+      await websocketChannel.ready;
+      _connecting = false;
 
-    if (_tries != -1) {
-      onReconnectSuccess();
+      if (_tries != -1) {
+        onReconnectSuccess();
+      }
+      _tries = -1;
+      _socketChannel = websocketChannel;
+
+      _socketChannel!.stream.listen(
+        _handleServerPayload,
+        onError: (error) {
+          _handleConnectionClosure();
+        },
+        onDone: _handleConnectionClosure,
+      );
+    } catch (_) {
+      _connecting = false;
     }
-    _tries = -1;
-    _socketChannel = websocketChannel;
-
-    _socketChannel!.stream.listen(
-      _handleServerPayload,
-      onError: (error) {
-        _handleConnectionClosure();
-      },
-      onDone: _handleConnectionClosure,
-    );
   }
 
   /// handleConnectionClosure is called by [IOWebSocketChannel] stream
