@@ -25,7 +25,7 @@ class Client {
     required this.onConnectionClosure,
     required this.payloadHandler,
     this.pingInterval,
-  });
+  }) : _resource = generateResource();
 
   /// pingInterval defines the default ping interval clients required
   /// if no pingInterval is passed default 30 seconds is used
@@ -43,7 +43,7 @@ class Client {
 
   /// resource part to identify each user session
   /// even if they are using same account but different device
-  // final String _resource;
+  final String _resource;
 
   /// onReconnectSuccess is invoked when user is successfully reconnected to the websocket server
   /// this method should be used to refetch the inbox and syncing of the archives after disconnect
@@ -84,9 +84,9 @@ class Client {
       Map<String, dynamic> headers = {
         "Authorization": "Bearer $jwtToken",
       };
-      final resource = generateResource();
+
       Uri connectionUrl = url.replace(queryParameters: {
-        "resource": resource,
+        "resource": _resource,
       });
 
       final websocketChannel = IOWebSocketChannel.connect(
