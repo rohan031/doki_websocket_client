@@ -12,4 +12,7 @@ enum NodeType {
 
   @JsonValue("discussion")
   discussion,
+
+  @JsonValue("poll")
+  poll,
 }

@@ -23,4 +23,5 @@ const _$NodeTypeEnumMap = {
   NodeType.post: 'post',
   NodeType.comment: 'comment',
   NodeType.discussion: 'discussion',
+  NodeType.poll: 'poll',
 };
