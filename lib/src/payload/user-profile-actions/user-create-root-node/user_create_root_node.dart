@@ -12,6 +12,7 @@ class UserCreateRootNode with _$UserCreateRootNode implements BasePayload {
     required String from,
     required String id,
     required NodeType nodeType,
+    required List<String> usersTagged,
     @Default(PayloadType.userCreateRootNode) PayloadType type,
   }) = _UserCreateRootNode;
 

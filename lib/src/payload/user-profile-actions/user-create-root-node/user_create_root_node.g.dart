@@ -12,6 +12,9 @@ _$UserCreateRootNodeImpl _$$UserCreateRootNodeImplFromJson(
       from: json['from'] as String,
       id: json['id'] as String,
       nodeType: $enumDecode(_$NodeTypeEnumMap, json['nodeType']),
+      usersTagged: (json['usersTagged'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
           PayloadType.userCreateRootNode,
     );
@@ -22,6 +25,7 @@ Map<String, dynamic> _$$UserCreateRootNodeImplToJson(
       'from': instance.from,
       'id': instance.id,
       'nodeType': _$NodeTypeEnumMap[instance.nodeType]!,
+      'usersTagged': instance.usersTagged,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 
