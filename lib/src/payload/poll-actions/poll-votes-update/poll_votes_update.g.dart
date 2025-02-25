@@ -1,23 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'typing_status.dart';
+part of 'poll_votes_update.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TypingStatusImpl _$$TypingStatusImplFromJson(Map<String, dynamic> json) =>
-    _$TypingStatusImpl(
+_$PollVotesUpdateImpl _$$PollVotesUpdateImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PollVotesUpdateImpl(
       from: json['from'] as String,
-      to: json['to'] as String,
+      pollId: json['pollId'] as String,
+      votes: (json['votes'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
-          PayloadType.typingStatus,
+          PayloadType.pollVotesUpdate,
     );
 
-Map<String, dynamic> _$$TypingStatusImplToJson(_$TypingStatusImpl instance) =>
+Map<String, dynamic> _$$PollVotesUpdateImplToJson(
+        _$PollVotesUpdateImpl instance) =>
     <String, dynamic>{
       'from': instance.from,
-      'to': instance.to,
+      'pollId': instance.pollId,
+      'votes': instance.votes,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 

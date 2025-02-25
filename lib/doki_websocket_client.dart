@@ -8,6 +8,8 @@ export "src/payload/instant-messaging/message-subject/message_subject.dart";
 export "src/payload/instant-messaging/typing-status/typing_status.dart";
 export "src/payload/node_type.dart";
 export "src/payload/payload_type.dart";
+export "src/payload/poll-actions/poll-subscription/poll_subscription.dart";
+export "src/payload/poll-actions/poll-votes-update/poll_votes_update.dart";
 export "src/payload/user-presence/user-presence-info/user_presence_info.dart";
 export "src/payload/user-presence/user-presence-subscription/user_presence_subscription.dart";
 export "src/payload/user-profile-actions/user-create-root-node/user_create_root_node.dart";

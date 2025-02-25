@@ -40,4 +40,6 @@ const _$PayloadTypeEnumMap = {
   PayloadType.userCreateSecondaryNode: 'user_create_secondary_node',
   PayloadType.userPresenceSubscription: 'user_presence_subscription',
   PayloadType.userPresenceInfo: 'user_presence_info',
+  PayloadType.pollSubscription: 'poll_subscription',
+  PayloadType.pollVotesUpdate: 'poll_votes_update',
 };

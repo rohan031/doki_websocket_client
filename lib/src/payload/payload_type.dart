@@ -1,7 +1,6 @@
 import 'package:doki_websocket_client/doki_websocket_client.dart';
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
-import 'package:doki_websocket_client/src/payload/user-presence/user-presence-info/user_presence_info.dart';
-import 'package:doki_websocket_client/src/payload/user-presence/user-presence-subscription/user_presence_subscription.dart';
+import 'package:doki_websocket_client/src/payload/poll-actions/poll-votes-update/poll_votes_update.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 typedef PayloadDecoder = BasePayload Function(Map<String, dynamic> json);
@@ -89,6 +88,18 @@ enum PayloadType {
   userPresenceInfo(
     value: "user_presence_info",
     decoder: UserPresenceInfo.fromJson,
+  ),
+
+  @JsonValue("poll_subscription")
+  pollSubscription(
+    value: "poll_subscription",
+    decoder: PollSubscription.fromJson,
+  ),
+
+  @JsonValue("poll_votes_update")
+  pollVotesUpdate(
+    value: "poll_votes_update",
+    decoder: PollVotesUpdate.fromJson,
   );
 
   const PayloadType({
