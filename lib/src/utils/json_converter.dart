@@ -10,6 +10,6 @@ class UTCDateTimeConverter implements JsonConverter<DateTime, String> {
 
   @override
   String toJson(DateTime object) {
-    return object.toIso8601String();
+    return object.toUtc().toIso8601String();
   }
 }
