@@ -1,6 +1,5 @@
 import 'package:doki_websocket_client/doki_websocket_client.dart';
 import 'package:doki_websocket_client/src/payload/base_payload.dart';
-import 'package:doki_websocket_client/src/payload/poll-actions/poll-votes-update/poll_votes_update.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 typedef PayloadDecoder = BasePayload Function(Map<String, dynamic> json);
