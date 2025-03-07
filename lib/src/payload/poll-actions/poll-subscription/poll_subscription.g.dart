@@ -11,6 +11,7 @@ _$PollSubscriptionImpl _$$PollSubscriptionImplFromJson(
     _$PollSubscriptionImpl(
       from: json['from'] as String,
       pollId: json['pollId'] as String,
+      subscribe: json['subscribe'] as bool,
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
           PayloadType.pollSubscription,
     );
@@ -20,6 +21,7 @@ Map<String, dynamic> _$$PollSubscriptionImplToJson(
     <String, dynamic>{
       'from': instance.from,
       'pollId': instance.pollId,
+      'subscribe': instance.subscribe,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 

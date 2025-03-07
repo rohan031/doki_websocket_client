@@ -22,6 +22,7 @@ PollSubscription _$PollSubscriptionFromJson(Map<String, dynamic> json) {
 mixin _$PollSubscription {
   String get from => throw _privateConstructorUsedError;
   String get pollId => throw _privateConstructorUsedError;
+  bool get subscribe => throw _privateConstructorUsedError;
   PayloadType get type => throw _privateConstructorUsedError;
 
   /// Serializes this PollSubscription to a JSON map.
@@ -40,7 +41,7 @@ abstract class $PollSubscriptionCopyWith<$Res> {
           PollSubscription value, $Res Function(PollSubscription) then) =
       _$PollSubscriptionCopyWithImpl<$Res, PollSubscription>;
   @useResult
-  $Res call({String from, String pollId, PayloadType type});
+  $Res call({String from, String pollId, bool subscribe, PayloadType type});
 }
 
 /// @nodoc
@@ -60,6 +61,7 @@ class _$PollSubscriptionCopyWithImpl<$Res, $Val extends PollSubscription>
   $Res call({
     Object? from = null,
     Object? pollId = null,
+    Object? subscribe = null,
     Object? type = null,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +73,10 @@ class _$PollSubscriptionCopyWithImpl<$Res, $Val extends PollSubscription>
           ? _value.pollId
           : pollId // ignore: cast_nullable_to_non_nullable
               as String,
+      subscribe: null == subscribe
+          ? _value.subscribe
+          : subscribe // ignore: cast_nullable_to_non_nullable
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -87,7 +93,7 @@ abstract class _$$PollSubscriptionImplCopyWith<$Res>
       __$$PollSubscriptionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String from, String pollId, PayloadType type});
+  $Res call({String from, String pollId, bool subscribe, PayloadType type});
 }
 
 /// @nodoc
@@ -105,6 +111,7 @@ class __$$PollSubscriptionImplCopyWithImpl<$Res>
   $Res call({
     Object? from = null,
     Object? pollId = null,
+    Object? subscribe = null,
     Object? type = null,
   }) {
     return _then(_$PollSubscriptionImpl(
@@ -116,6 +123,10 @@ class __$$PollSubscriptionImplCopyWithImpl<$Res>
           ? _value.pollId
           : pollId // ignore: cast_nullable_to_non_nullable
               as String,
+      subscribe: null == subscribe
+          ? _value.subscribe
+          : subscribe // ignore: cast_nullable_to_non_nullable
+              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -130,6 +141,7 @@ class _$PollSubscriptionImpl implements _PollSubscription {
   const _$PollSubscriptionImpl(
       {required this.from,
       required this.pollId,
+      required this.subscribe,
       this.type = PayloadType.pollSubscription});
 
   factory _$PollSubscriptionImpl.fromJson(Map<String, dynamic> json) =>
@@ -140,12 +152,14 @@ class _$PollSubscriptionImpl implements _PollSubscription {
   @override
   final String pollId;
   @override
+  final bool subscribe;
+  @override
   @JsonKey()
   final PayloadType type;
 
   @override
   String toString() {
-    return 'PollSubscription(from: $from, pollId: $pollId, type: $type)';
+    return 'PollSubscription(from: $from, pollId: $pollId, subscribe: $subscribe, type: $type)';
   }
 
   @override
@@ -155,12 +169,14 @@ class _$PollSubscriptionImpl implements _PollSubscription {
             other is _$PollSubscriptionImpl &&
             (identical(other.from, from) || other.from == from) &&
             (identical(other.pollId, pollId) || other.pollId == pollId) &&
+            (identical(other.subscribe, subscribe) ||
+                other.subscribe == subscribe) &&
             (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, from, pollId, type);
+  int get hashCode => Object.hash(runtimeType, from, pollId, subscribe, type);
 
   /// Create a copy of PollSubscription
   /// with the given fields replaced by the non-null parameter values.
@@ -183,6 +199,7 @@ abstract class _PollSubscription implements PollSubscription {
   const factory _PollSubscription(
       {required final String from,
       required final String pollId,
+      required final bool subscribe,
       final PayloadType type}) = _$PollSubscriptionImpl;
 
   factory _PollSubscription.fromJson(Map<String, dynamic> json) =
@@ -192,6 +209,8 @@ abstract class _PollSubscription implements PollSubscription {
   String get from;
   @override
   String get pollId;
+  @override
+  bool get subscribe;
   @override
   PayloadType get type;
 

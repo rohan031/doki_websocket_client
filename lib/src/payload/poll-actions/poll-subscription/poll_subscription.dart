@@ -10,6 +10,7 @@ class PollSubscription with _$PollSubscription implements BasePayload {
   const factory PollSubscription({
     required String from,
     required String pollId,
+    required bool subscribe,
     @Default(PayloadType.pollSubscription) PayloadType type,
   }) = _PollSubscription;
 
