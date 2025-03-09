@@ -51,4 +51,12 @@ enum MessageSubject {
   });
 
   final String value;
+
+  factory MessageSubject.fromValue(String value) {
+    for (var type in MessageSubject.values) {
+      if (type.value == value) return type;
+    }
+
+    return MessageSubject.text;
+  }
 }
