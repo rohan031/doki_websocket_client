@@ -11,7 +11,6 @@ _$DeleteMessageImpl _$$DeleteMessageImplFromJson(Map<String, dynamic> json) =>
       from: json['from'] as String,
       to: json['to'] as String,
       id: (json['id'] as List<dynamic>).map((e) => e as String).toList(),
-      everyone: json['everyone'] as bool,
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
           PayloadType.deleteMessage,
     );
@@ -21,7 +20,6 @@ Map<String, dynamic> _$$DeleteMessageImplToJson(_$DeleteMessageImpl instance) =>
       'from': instance.from,
       'to': instance.to,
       'id': instance.id,
-      'everyone': instance.everyone,
       'type': _$PayloadTypeEnumMap[instance.type]!,
     };
 

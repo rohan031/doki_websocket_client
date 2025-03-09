@@ -23,7 +23,6 @@ mixin _$DeleteMessage {
   String get from => throw _privateConstructorUsedError;
   String get to => throw _privateConstructorUsedError;
   List<String> get id => throw _privateConstructorUsedError;
-  bool get everyone => throw _privateConstructorUsedError;
   PayloadType get type => throw _privateConstructorUsedError;
 
   /// Serializes this DeleteMessage to a JSON map.
@@ -42,12 +41,7 @@ abstract class $DeleteMessageCopyWith<$Res> {
           DeleteMessage value, $Res Function(DeleteMessage) then) =
       _$DeleteMessageCopyWithImpl<$Res, DeleteMessage>;
   @useResult
-  $Res call(
-      {String from,
-      String to,
-      List<String> id,
-      bool everyone,
-      PayloadType type});
+  $Res call({String from, String to, List<String> id, PayloadType type});
 }
 
 /// @nodoc
@@ -68,7 +62,6 @@ class _$DeleteMessageCopyWithImpl<$Res, $Val extends DeleteMessage>
     Object? from = null,
     Object? to = null,
     Object? id = null,
-    Object? everyone = null,
     Object? type = null,
   }) {
     return _then(_value.copyWith(
@@ -84,10 +77,6 @@ class _$DeleteMessageCopyWithImpl<$Res, $Val extends DeleteMessage>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      everyone: null == everyone
-          ? _value.everyone
-          : everyone // ignore: cast_nullable_to_non_nullable
-              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -104,12 +93,7 @@ abstract class _$$DeleteMessageImplCopyWith<$Res>
       __$$DeleteMessageImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String from,
-      String to,
-      List<String> id,
-      bool everyone,
-      PayloadType type});
+  $Res call({String from, String to, List<String> id, PayloadType type});
 }
 
 /// @nodoc
@@ -128,7 +112,6 @@ class __$$DeleteMessageImplCopyWithImpl<$Res>
     Object? from = null,
     Object? to = null,
     Object? id = null,
-    Object? everyone = null,
     Object? type = null,
   }) {
     return _then(_$DeleteMessageImpl(
@@ -144,10 +127,6 @@ class __$$DeleteMessageImplCopyWithImpl<$Res>
           ? _value._id
           : id // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      everyone: null == everyone
-          ? _value.everyone
-          : everyone // ignore: cast_nullable_to_non_nullable
-              as bool,
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
@@ -163,7 +142,6 @@ class _$DeleteMessageImpl implements _DeleteMessage {
       {required this.from,
       required this.to,
       required final List<String> id,
-      required this.everyone,
       this.type = PayloadType.deleteMessage})
       : _id = id;
 
@@ -183,14 +161,12 @@ class _$DeleteMessageImpl implements _DeleteMessage {
   }
 
   @override
-  final bool everyone;
-  @override
   @JsonKey()
   final PayloadType type;
 
   @override
   String toString() {
-    return 'DeleteMessage(from: $from, to: $to, id: $id, everyone: $everyone, type: $type)';
+    return 'DeleteMessage(from: $from, to: $to, id: $id, type: $type)';
   }
 
   @override
@@ -201,15 +177,13 @@ class _$DeleteMessageImpl implements _DeleteMessage {
             (identical(other.from, from) || other.from == from) &&
             (identical(other.to, to) || other.to == to) &&
             const DeepCollectionEquality().equals(other._id, _id) &&
-            (identical(other.everyone, everyone) ||
-                other.everyone == everyone) &&
             (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, from, to,
-      const DeepCollectionEquality().hash(_id), everyone, type);
+  int get hashCode => Object.hash(
+      runtimeType, from, to, const DeepCollectionEquality().hash(_id), type);
 
   /// Create a copy of DeleteMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -232,7 +206,6 @@ abstract class _DeleteMessage implements DeleteMessage {
       {required final String from,
       required final String to,
       required final List<String> id,
-      required final bool everyone,
       final PayloadType type}) = _$DeleteMessageImpl;
 
   factory _DeleteMessage.fromJson(Map<String, dynamic> json) =
@@ -244,8 +217,6 @@ abstract class _DeleteMessage implements DeleteMessage {
   String get to;
   @override
   List<String> get id;
-  @override
-  bool get everyone;
   @override
   PayloadType get type;
 

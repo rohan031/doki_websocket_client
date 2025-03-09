@@ -11,7 +11,6 @@ class DeleteMessage with _$DeleteMessage implements BasePayload {
     required String from,
     required String to,
     required List<String> id,
-    required bool everyone,
     @Default(PayloadType.deleteMessage) PayloadType type,
   }) = _DeleteMessage;
 
