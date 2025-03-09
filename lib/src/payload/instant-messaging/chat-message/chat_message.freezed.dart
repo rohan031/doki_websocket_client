@@ -25,6 +25,7 @@ mixin _$ChatMessage {
   String get id => throw _privateConstructorUsedError;
   MessageSubject get subject => throw _privateConstructorUsedError;
   String get body => throw _privateConstructorUsedError;
+  bool get forwarded => throw _privateConstructorUsedError;
   String? get replyOn => throw _privateConstructorUsedError;
   @UTCDateTimeConverter()
   DateTime get sendAt => throw _privateConstructorUsedError;
@@ -52,6 +53,7 @@ abstract class $ChatMessageCopyWith<$Res> {
       String id,
       MessageSubject subject,
       String body,
+      bool forwarded,
       String? replyOn,
       @UTCDateTimeConverter() DateTime sendAt,
       PayloadType type});
@@ -77,6 +79,7 @@ class _$ChatMessageCopyWithImpl<$Res, $Val extends ChatMessage>
     Object? id = null,
     Object? subject = null,
     Object? body = null,
+    Object? forwarded = null,
     Object? replyOn = freezed,
     Object? sendAt = null,
     Object? type = null,
@@ -102,6 +105,10 @@ class _$ChatMessageCopyWithImpl<$Res, $Val extends ChatMessage>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      forwarded: null == forwarded
+          ? _value.forwarded
+          : forwarded // ignore: cast_nullable_to_non_nullable
+              as bool,
       replyOn: freezed == replyOn
           ? _value.replyOn
           : replyOn // ignore: cast_nullable_to_non_nullable
@@ -132,6 +139,7 @@ abstract class _$$ChatMessageImplCopyWith<$Res>
       String id,
       MessageSubject subject,
       String body,
+      bool forwarded,
       String? replyOn,
       @UTCDateTimeConverter() DateTime sendAt,
       PayloadType type});
@@ -155,6 +163,7 @@ class __$$ChatMessageImplCopyWithImpl<$Res>
     Object? id = null,
     Object? subject = null,
     Object? body = null,
+    Object? forwarded = null,
     Object? replyOn = freezed,
     Object? sendAt = null,
     Object? type = null,
@@ -180,6 +189,10 @@ class __$$ChatMessageImplCopyWithImpl<$Res>
           ? _value.body
           : body // ignore: cast_nullable_to_non_nullable
               as String,
+      forwarded: null == forwarded
+          ? _value.forwarded
+          : forwarded // ignore: cast_nullable_to_non_nullable
+              as bool,
       replyOn: freezed == replyOn
           ? _value.replyOn
           : replyOn // ignore: cast_nullable_to_non_nullable
@@ -206,6 +219,7 @@ class _$ChatMessageImpl implements _ChatMessage {
       required this.id,
       required this.subject,
       required this.body,
+      this.forwarded = false,
       this.replyOn,
       @UTCDateTimeConverter() required this.sendAt,
       this.type = PayloadType.chatMessage});
@@ -224,6 +238,9 @@ class _$ChatMessageImpl implements _ChatMessage {
   @override
   final String body;
   @override
+  @JsonKey()
+  final bool forwarded;
+  @override
   final String? replyOn;
   @override
   @UTCDateTimeConverter()
@@ -234,7 +251,7 @@ class _$ChatMessageImpl implements _ChatMessage {
 
   @override
   String toString() {
-    return 'ChatMessage(from: $from, to: $to, id: $id, subject: $subject, body: $body, replyOn: $replyOn, sendAt: $sendAt, type: $type)';
+    return 'ChatMessage(from: $from, to: $to, id: $id, subject: $subject, body: $body, forwarded: $forwarded, replyOn: $replyOn, sendAt: $sendAt, type: $type)';
   }
 
   @override
@@ -247,6 +264,8 @@ class _$ChatMessageImpl implements _ChatMessage {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.subject, subject) || other.subject == subject) &&
             (identical(other.body, body) || other.body == body) &&
+            (identical(other.forwarded, forwarded) ||
+                other.forwarded == forwarded) &&
             (identical(other.replyOn, replyOn) || other.replyOn == replyOn) &&
             (identical(other.sendAt, sendAt) || other.sendAt == sendAt) &&
             (identical(other.type, type) || other.type == type));
@@ -254,8 +273,8 @@ class _$ChatMessageImpl implements _ChatMessage {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, from, to, id, subject, body, replyOn, sendAt, type);
+  int get hashCode => Object.hash(runtimeType, from, to, id, subject, body,
+      forwarded, replyOn, sendAt, type);
 
   /// Create a copy of ChatMessage
   /// with the given fields replaced by the non-null parameter values.
@@ -280,6 +299,7 @@ abstract class _ChatMessage implements ChatMessage {
       required final String id,
       required final MessageSubject subject,
       required final String body,
+      final bool forwarded,
       final String? replyOn,
       @UTCDateTimeConverter() required final DateTime sendAt,
       final PayloadType type}) = _$ChatMessageImpl;
@@ -297,6 +317,8 @@ abstract class _ChatMessage implements ChatMessage {
   MessageSubject get subject;
   @override
   String get body;
+  @override
+  bool get forwarded;
   @override
   String? get replyOn;
   @override

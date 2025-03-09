@@ -13,6 +13,7 @@ _$ChatMessageImpl _$$ChatMessageImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       subject: $enumDecode(_$MessageSubjectEnumMap, json['subject']),
       body: json['body'] as String,
+      forwarded: json['forwarded'] as bool? ?? false,
       replyOn: json['replyOn'] as String?,
       sendAt: const UTCDateTimeConverter().fromJson(json['sendAt'] as String),
       type: $enumDecodeNullable(_$PayloadTypeEnumMap, json['type']) ??
@@ -26,6 +27,7 @@ Map<String, dynamic> _$$ChatMessageImplToJson(_$ChatMessageImpl instance) =>
       'id': instance.id,
       'subject': _$MessageSubjectEnumMap[instance.subject]!,
       'body': instance.body,
+      'forwarded': instance.forwarded,
       if (instance.replyOn case final value?) 'replyOn': value,
       'sendAt': const UTCDateTimeConverter().toJson(instance.sendAt),
       'type': _$PayloadTypeEnumMap[instance.type]!,
